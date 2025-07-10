@@ -10,7 +10,9 @@ export async function GET(request: Request) {
 
     const res = await fetch(`https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple`)
 
-    if (!res.ok){
+    if (!res.ok) {
+        const errorText = await res.text();
+        console.error('Failed response:', res.status, errorText);
         return NextResponse.json({error: 'Failed to fetch trivia questions'}, {status: 500})
     }
 
