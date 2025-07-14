@@ -1,19 +1,7 @@
+import { decode } from 'he';
+import { shuffle } from '@/utils/shuffle';
+import { RawTriviaQuestion, CleanedQuestion } from '@/types';
 
-type RawTriviaQuestion = {
-    question: string
-    correct_answer: string
-    incorrect_answers: string[]
-    category: string
-    difficulty: string
-}
-  
-type CleanedQuestion = {
-    questionText: string
-    correctAnswer: string
-    answers: string[]
-    category: string
-    difficulty: string
-}
 
 export function cleanQuestion(raw: RawTriviaQuestion): CleanedQuestion {
 
@@ -21,12 +9,12 @@ export function cleanQuestion(raw: RawTriviaQuestion): CleanedQuestion {
 
     const allAnswers = [correct_answer, ...incorrect_answers];
 
-    const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
+    const shuffledAnswers = shuffle(allAnswers);
 
     return {
-        questionText: question,
-        correctAnswer: correct_answer,
-        answers: shuffledAnswers,
+        questionText: decode(question),
+        correctAnswer: decode(correct_answer),
+        answers: shuffledAnswers.map((answer) => decode(answer)),
         category,
         difficulty
     };
