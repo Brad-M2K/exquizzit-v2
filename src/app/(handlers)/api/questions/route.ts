@@ -4,6 +4,7 @@ import { RawTriviaQuestion, CleanedQuestion } from '@/types';
 
 
 export async function GET(request: Request) {
+    console.log('API Activated')
     
     const { searchParams } = new URL(request.url);
 
@@ -14,7 +15,7 @@ export async function GET(request: Request) {
     let url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple`
     
 
-    if (difficulty) {
+    if (difficulty !== "undefined") {
         url += `&difficulty=${difficulty}`
     }
 

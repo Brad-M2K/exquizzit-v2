@@ -1,17 +1,18 @@
 'use client';
 import { TopicListProps } from '@/types'
-import styles from './TopicList.module.css'
+
 
 
 export default function TopicsList({ topics, setTopic, setShowPopup}: TopicListProps) {
     
-        return (
-            <ul className={styles.listContainer}>
-            <h1 className={styles.header}>pick your challenge</h1>
+    return (
+        <div>
+            <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 p-2 rounded-2xl items-center">
             {topics.map((t) => (
                 <li
                     key={t.id}
-                    className={styles.list}
+                    className="transition cursor-pointer bg-[rgba(0,0,0,0.5)] bg-opacity-10 hover:bg-purple-800 active:bg-purple-900 p-6 rounded-2xl shadow-lg font-semibold text-purple-100 text-lg border-2 border-transparent hover:border-purple-500 focus:border-purple-500 outline-none focus:outline-none text-center"
+                    tabIndex={0}
                     onClick={() => {
                         setTopic(t.id)
                         setShowPopup(true)
@@ -21,5 +22,6 @@ export default function TopicsList({ topics, setTopic, setShowPopup}: TopicListP
                 </li>
             ))}
             </ul>
+        </div>
         );
     }
