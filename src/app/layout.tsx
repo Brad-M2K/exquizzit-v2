@@ -15,6 +15,10 @@ export default function RootLayout({
       >
         <Nav/>
         {children}
+
+        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+        By Brad - created with Next.js, Typescript, & Tailwind
+      </footer>
       </body>
     </html>
   );

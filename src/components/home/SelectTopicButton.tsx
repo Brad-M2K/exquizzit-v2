@@ -17,7 +17,7 @@ export default function SelectTopicButton() {
     return (
         <button
             onClick={handleTopicPage}
-            className="bg-purple-800 hover:bg-purple-900 hover:scale-105 transition rounded-md px-4 py-2 text-white font-bold shadow-md"
+            className="bg-purple-900 hover:bg-purple-900 hover:scale-105 transition rounded-md px-4 py-2 text-white font-bold shadow-md"
         >
             Choose a Topic
         </button>

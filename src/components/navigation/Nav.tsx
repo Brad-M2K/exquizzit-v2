@@ -10,7 +10,7 @@ export default function Nav() {
 
     const router = useRouter();
 
-    const menuRef = useRef<HTMLDivElemnt>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -59,16 +59,16 @@ export default function Nav() {
             {menuOpen && (
                 <div
                     ref={menuRef}
-                    className="fixed top-20 right-4 z-40 bg-[rgba(0,0,0,0.5)] p-4 rounded-md shadow-md flex flex-col items-end space-y-4">
+                    className="fixed top-20 right-4 z-40 p-4 rounded-xl shadow-lg flex flex-col items-end space-y-4 cursor-pointer backdrop-blur-lg bg-[rgba(30,27,75,0.7)] border border-[rgba(168,85,247,0.15)]"
+                >
                     <p
                         onClick={() => handleNavClick('./')}
-                        className='text-white text-2xl font-bold hover:text-gray-500'
+                        className='text-white text-2xl font-bold hover:text-purple-300 drop-shadow'
                     >
                         Home
                     </p>
                     <p
-                        className='text-white text-2xl font-bold hover:text-gray-500'
-
+                        className='text-white text-2xl font-bold hover:text-purple-300 drop-shadow'
                     >
                         Profile
                     </p>
