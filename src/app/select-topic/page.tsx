@@ -5,7 +5,7 @@ import { useState } from 'react';
 import TopicsList from '@/components/topics/TopicList';
 import { useRouter } from 'next/navigation';
 import Popup from '@/components/topics/Popup';
-// import styles from '@/components/topics/Popup.module.css'
+import { useQuizStore } from '@/store/quizStore'
 
 
 
@@ -16,12 +16,12 @@ export default function SelectTopicPage() {
     const [showPopup, setShowPopup] = useState(false);
 
     const router = useRouter();
+    const setQuizOptions = useQuizStore((state) => state.setQuizOptions)
 
-
-    const handleStartQuiz = async () => {
+    const handleGameSetup = async () => {
         console.log('Starting quiz with:', topic, difficulty)
-        const query = `?category=${topic}&difficulty=${difficulty}`;
-        router.push(`/quiz${query}`);
+        setQuizOptions(String(topic), difficulty || 'mixed')
+        router.push(`/quiz`);
 
     }
     
@@ -30,12 +30,12 @@ export default function SelectTopicPage() {
             className="flex min-h-screen items-center justify-center p-10"
         >
             {showPopup && (
-                <div className="fixed inset-0 bg-transparent backdrop-blur-xs flex justify-center items-center z-50">
+                <div className="fixed inset-0 bg-transparent flex justify-center items-center z-50">
                     <Popup
                         topic={topics.find(t => t.id === topic)?.name || ''}
                         difficulty={difficulty}
                         setDifficulty={setDifficulty}
-                        onStart={handleStartQuiz}
+                        onStart={handleGameSetup}
                         setShowPopup={setShowPopup}
                     />
                 </div>

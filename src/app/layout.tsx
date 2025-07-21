@@ -16,8 +16,8 @@ export default function RootLayout({
         <Nav/>
         {children}
 
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        By Brad - created with Next.js, Typescript, & Tailwind
+        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center bg-transparent backdrop-blur-xl border p-4">
+        By Brad - created with Next.js, Typescript, Tailwind, and a little API friend Open Trivia Database
       </footer>
       </body>
     </html>

@@ -1,5 +1,7 @@
 'use client';
 
+import '@/styles/animations.css';
+
 import { useRouter } from 'next/navigation';
 
 export default function SelectTopicButton() {
@@ -17,9 +19,9 @@ export default function SelectTopicButton() {
     return (
         <button
             onClick={handleTopicPage}
-            className="bg-purple-900 hover:bg-purple-900 hover:scale-105 transition rounded-md px-4 py-2 text-white font-bold shadow-md"
+            className="text-[#00ffee] hover:bg-purple-900 hover:scale-105 transition rounded-xl px-4 py-2 text-white font-bold shadow-md flex justify-center items-center throb-button border border-white/30 lg:border-transparent"
         >
-            Choose a Topic
+            Get Started and Choose a Topic
         </button>
     )
 

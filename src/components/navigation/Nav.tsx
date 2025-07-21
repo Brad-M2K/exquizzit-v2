@@ -46,12 +46,12 @@ export default function Nav() {
             {menuOpen ? (
                 <CircleX
                     onClick={() => setMenuOpen(false)}
-                    className='cursor-pointer w-12 h-12 stroke-fuchsia-800 fixed top-8 right-4 z-50 p-2'
+                    className='cursor-pointer w-12 h-12 stroke-fuchsia-900 hover:stroke-fuchsia-700 fixed top-8 right-4 z-50 p-2'
                 />
             ) : (
                 <Menu
                 onClick={() => setMenuOpen((prev) => !prev)}
-                className='cursor-pointer w-12 h-12 stroke-fuchsia-800 fixed top-8 right-4 z-50 p-2'
+                className='cursor-pointer w-12 h-12 stroke-fuchsia-900 hover:stroke-fuchsia-700 fixed top-8 right-4 z-50 p-2'
                 />
                 )
             }
@@ -59,18 +59,31 @@ export default function Nav() {
             {menuOpen && (
                 <div
                     ref={menuRef}
-                    className="fixed top-20 right-4 z-40 p-4 rounded-xl shadow-lg flex flex-col items-end space-y-4 cursor-pointer backdrop-blur-lg bg-[rgba(30,27,75,0.7)] border border-[rgba(168,85,247,0.15)]"
+                    className="fixed top-20 right-4 z-40 p-4 rounded-3xl shadow-lg flex flex-col items-end space-y-4 cursor-pointer backdrop-blur-lg border border-[rgba(168,85,247,0.15)]"
                 >
                     <p
                         onClick={() => handleNavClick('./')}
-                        className='text-white text-2xl font-bold hover:text-purple-300 drop-shadow'
+                        className='text-purple-300 text-2xl font-bold hover:text-[#00ffee] drop-shadow'
                     >
                         Home
                     </p>
                     <p
-                        className='text-white text-2xl font-bold hover:text-purple-300 drop-shadow'
+                        onClick={() => window.alert('Feature coming soon')}
+                        className='text-purple-300 text-2xl font-bold hover:text-[#00ffee] drop-shadow'
                     >
                         Profile
+                    </p>
+                    <p
+                        onClick={() => window.alert('Feature coming soon')}
+                        className='text-purple-300 text-2xl font-bold hover:text-[#00ffee] drop-shadow'
+                    >
+                        Leaderboard&apos;s
+                    </p>
+                    <p
+                        onClick={() => window.alert('Feature coming soon')}
+                        className='text-purple-300 text-2xl font-bold hover:text-[#00ffee] drop-shadow'
+                    >
+                        Settings
                     </p>
                 </div>
             )}

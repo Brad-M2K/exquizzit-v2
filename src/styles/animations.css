@@ -9,6 +9,24 @@
     }
 }
 
+@keyframes throb {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 0.85;
+    }
+}
+
+.throb-button {
+    animation: throb 2s ease-in-out infinite;
+}
+
 .magic-shimmer-text {
     background-image: linear-gradient(270deg,
             #ff00c8,
@@ -29,3 +47,4 @@
     color: transparent;
     animation: magic-shimmer-once 1.9s ease-in-out forwards;
 }
+
