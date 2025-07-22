@@ -14,17 +14,18 @@ export default function SelectTopicPage() {
     const [topic, setTopic] = useState<number | undefined>();
     const [difficulty, setDifficulty] = useState<string | 'mixed'>();
     const [showPopup, setShowPopup] = useState(false);
+    
 
     const router = useRouter();
     const setQuizOptions = useQuizStore((state) => state.setQuizOptions)
 
     const handleGameSetup = async () => {
         console.log('Starting quiz with:', topic, difficulty)
-        router.push(`/quiz`);
-        
+        setQuizOptions(String(topic), difficulty || 'mixed')
         setTimeout(() => {
-            setQuizOptions(String(topic), difficulty || 'mixed')
-        }, 10)
+            router.push(`/quiz`);
+        }, 800)
+        
 
     }
     
@@ -33,7 +34,7 @@ export default function SelectTopicPage() {
             className="flex min-h-screen items-center justify-center p-10"
         >
             {showPopup && (
-                <div className="fixed inset-0 bg-transparent flex justify-center items-center z-50">
+                <div className="fixed inset-0 bg-transparent backdrop-blur-xs flex justify-center items-center z-50">
                     <Popup
                         topic={topics.find(t => t.id === topic)?.name || ''}
                         difficulty={difficulty}

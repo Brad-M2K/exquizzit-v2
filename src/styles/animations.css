@@ -22,6 +22,22 @@
     }
 }
 
+@keyframes fast-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.animate-fast-pulse {
+    animation: fast-pulse 0.3s infinite;
+}
+
 .throb-button {
     animation: throb 2s ease-in-out infinite;
 }
@@ -57,4 +73,16 @@
     animation: shimmer 6s infinite linear;
 }
 
-
+.magic-shimmer-timer{
+    background: linear-gradient(270deg,
+                #ff00c8,
+                #00ffee,
+                #a855f7,
+                #ff00c8,
+                #00ffee,
+                #a855f7,
+                #ff00c8);
+        /* Repeat the color stops for a seamless loop */
+        background-size: 400% 100%;
+        animation: shimmer 15s infinite linear;
+}

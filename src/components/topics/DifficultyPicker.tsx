@@ -12,7 +12,7 @@ export default function DifficultyPicker({ difficulty, setDifficulty }: Difficul
     const [selected, setSelected] = useState(difficulty || 'mixed');
 
     return (
-        <div className="flex items-center justify-items-center rounded-xl p-1.5 bg-gray-300 shadow">
+        <div className="flex items-center justify-items-center rounded-xl p-1.5 bg-gray-300 shadow ">
         {difficulties.map((diff) => (
             <button
                 key={diff}
