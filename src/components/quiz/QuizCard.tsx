@@ -5,60 +5,65 @@ import Question from '@/components/quiz/Question'
 import Timer from '@/components/quiz/Timer';
 import { useState, useEffect } from 'react';
 import { useQuizStore } from '@/store/quizStore'
+import QuizSkeleton from '@/components/Skeletons/QuizSkeleton';
 
 export default function QuestionCard() {
     const { topic, difficulty } = useQuizStore();
     const [questions, setQuestions] = useState([]);
-    const [fetching, setFetching] = useState(false);
     const [fetched, setFetched] = useState(false);
+    const [loading, setLoading] = useState(true);
 
 
 
     useEffect(() => {
         if (!topic || !difficulty) return;
-        if (fetched || fetching) return;
-        console.log(topic, difficulty)
+        if (fetched) return;
 
-        let cancelled = false;
-
+        console.log('Fetching questions for topic:', topic, 'difficulty:', difficulty)
+        
         const fetchQuestions = async () => {
-            setFetching(true);
+            
             try {
-                const response = await fetch(`/api/questions?category=${topic}&difficulty=${difficulty}`);
-                console.log(response)
-                const data = await response.json();
-                if (!cancelled) {
-                    setQuestions(data);
-                    setFetched(true);
+                
+                await new Promise((res) => setTimeout(res, 1500));
+                
+                const response = await fetch(`/api/questions?category=${topic}&difficulty=${difficulty}`)
+                
+                setFetched(true);
+                setLoading(false);
+                
+                if (!response.ok) {
+                    console.error('API response not ok:', response.status, response.statusText)
+                    return;
                 }
+                
+                const data = await response.json()
+                console.log('Fetched questions:', data)
+                setQuestions(data)
+                
             } catch (err) {
-                if (!cancelled) {
-                    console.error('Error fetching quiz questions:', err);
-                }
-            } finally {
-                if (!cancelled) {
-                    setFetching(false);
-                }
+                console.error('Error fetching questions:', err)
             }
+
         };
 
         fetchQuestions();
 
-        return () => {
-            cancelled = true;
-        };
-    }, [topic, difficulty, fetched, fetching]);
+    }, [topic, difficulty, fetched, setLoading]);
 
     return (
         <div className="w-full px-4 mt-5">
 
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-2xl border border-white/20 mx-auto w-[350px] sm:w-[400px] md:w-[500px] lg:w-[600px]">
-                
-                <Timer />
-                
-                <Question question={questions} />
-
-                <AnswerGrid answers={questions}/>
+                {loading ? (
+                    <QuizSkeleton />
+                ) : (
+                    <>
+                        <Timer />
+                        <Question question={questions} />
+                        <AnswerGrid answers={questions} />
+                    </>
+                )}
             </div>
         </div>
     )

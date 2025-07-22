@@ -48,3 +48,29 @@
     animation: magic-shimmer-once 1.9s ease-in-out forwards;
 }
 
+.magic-shimmer-bg {
+    background: linear-gradient(270deg,
+            #ff00c8,
+            #00ffee,
+            #a855f7,
+            #9333ea,
+            #ff00c8,
+            #00ff99,
+            #f59e42,
+            #f43f5e,
+            #38bdf8,
+            #fbbf24,
+            #ff00c8);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}

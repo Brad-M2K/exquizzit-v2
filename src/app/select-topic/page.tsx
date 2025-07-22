@@ -20,8 +20,11 @@ export default function SelectTopicPage() {
 
     const handleGameSetup = async () => {
         console.log('Starting quiz with:', topic, difficulty)
-        setQuizOptions(String(topic), difficulty || 'mixed')
         router.push(`/quiz`);
+        
+        setTimeout(() => {
+            setQuizOptions(String(topic), difficulty || 'mixed')
+        }, 10)
 
     }
     
