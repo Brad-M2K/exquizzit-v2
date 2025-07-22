@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useState } from 'react';
+import '@/styles/animations.css'
 
 export type DifficultyPickerProps = {
     difficulty: string;
@@ -22,8 +23,8 @@ export default function DifficultyPicker({ difficulty, setDifficulty }: Difficul
                     className={clsx(
                         'px-4 py-2 font-semibold text-sm cursor-pointer transparent',
                         selected === diff
-                            ? 'bg-fuchsia-900 text-white rounded-lg shadow'
-                            : 'bg-transparent text-purple-800 hover:bg-fuchsia-800 hover:rounded-lg hover:text-white'
+                            ? 'magic-shimmer-bg text-white rounded-lg shadow'
+                            : 'bg-transparent text-purple-700 hover:bg-gray-400/30 hover:rounded-lg'
                 )}
             >
             {diff}

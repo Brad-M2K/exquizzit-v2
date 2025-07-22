@@ -10,16 +10,16 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
 
     return (
         <div
-            className="backdrop-blur-3xl border border-[rgba(168,85,247,0.15)] rounded-xl shadow-lg p-6 flex flex-col items-center gap-6 min-h-80 max-w-sm w-[90%]"
+            className="backdrop-blur-lg border border-[rgba(168,85,247,0.15)] rounded-xl shadow-lg p-6 flex flex-col items-center gap-6 min-h-80 max-w-sm w-[90%]"
         >
             <h1
-                className="font-semibold text-[#00ffee] text-xl "
+                className="font-semibold magic-shimmer-text text-xl "
             >
                 {selectedTopic?.name}
             </h1>
             <p
                 
-                className="text-xl font-semibold px-3 text-center magic-shimmer-text"
+                className="text-xl font-semibold px-3 text-center text-[#00ffee]"
             >
                 {message}
             </p>
@@ -32,13 +32,13 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
             >
                 <button
                 onClick={() => setShowPopup(false)}
-                className="bg-fuchsia-900 hover:bg-fuchsia-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer"
+                className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer"
                 >
                     Back
                 </button>
                 <button
                     onClick={onStart}
-                    className="bg-fuchsia-900 hover:bg-fuchsia-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer"
+                    className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer"
                 >
                     confirm and let&#39;s go!
                 </button>

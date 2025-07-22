@@ -1,11 +1,10 @@
-@keyframes magic-shimmer-once {
+@keyframes shimmer {
     0% {
-        background-position: 0% 50%;
+        background-position: -200% 0;
     }
 
     100% {
-        background-position: 100% 50%;
-        /* No background-image override here */
+        background-position: 200% 0;
     }
 }
 
@@ -29,23 +28,20 @@
 
 .magic-shimmer-text {
     background-image: linear-gradient(270deg,
-            #ff00c8,
-            #00ffee,
-            #a855f7,
-            #9333ea,
-            #ff00c8,
-            #00ff99,
-            #f59e42,
-            #f43f5e,
-            #38bdf8,
-            #fbbf24,
-            #ff00c8);
-    background-size: 400% 400%;
+        #ff00c8,
+        #00ffee,
+        #a855f7,
+        #ff00c8,
+        #00ffee,
+        #a855f7,
+        #ff00c8
+    );
+    background-size: 200% 200%;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: magic-shimmer-once 1.9s ease-in-out forwards;
+    animation: shimmer 4.4s linear infinite;
 }
 
 .magic-shimmer-bg {
@@ -53,24 +49,12 @@
             #ff00c8,
             #00ffee,
             #a855f7,
-            #9333ea,
             #ff00c8,
-            #00ff99,
-            #f59e42,
-            #f43f5e,
-            #38bdf8,
-            #fbbf24,
-            #ff00c8);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite linear;
+            #00ffee,
+            #a855f7,
+            #ff00c8); /* Repeat the color stops for a seamless loop */
+    background-size: 400% 100%;
+    animation: shimmer 6s infinite linear;
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
 
-    100% {
-        background-position: 200% 0;
-    }
-}

@@ -46,12 +46,12 @@ export default function Nav() {
             {menuOpen ? (
                 <CircleX
                     onClick={() => setMenuOpen(false)}
-                    className='cursor-pointer w-12 h-12 stroke-fuchsia-900 hover:stroke-fuchsia-700 fixed top-8 right-4 z-50 p-2'
+                    className='cursor-pointer w-12 h-12 stroke-purple-500 hover:stroke-purple-700 fixed top-8 right-4 z-50 p-2'
                 />
             ) : (
                 <Menu
                 onClick={() => setMenuOpen((prev) => !prev)}
-                className='cursor-pointer w-12 h-12 stroke-fuchsia-900 hover:stroke-fuchsia-700 fixed top-8 right-4 z-50 p-2'
+                className='cursor-pointer w-12 h-12 stroke-purple-500 hover:stroke-purple-700 fixed top-8 right-4 z-50 p-2'
                 />
                 )
             }
