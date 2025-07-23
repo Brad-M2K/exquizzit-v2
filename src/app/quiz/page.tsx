@@ -11,8 +11,8 @@ import { useEffect } from 'react';
 export default function Quiz() {
 
     const { setLoading, setQuestions, setFetched } = useQuizStore();
-    const { topic, difficulty } = useQuizStore();
-    const { fetched } = useQuizStore();
+    const { topic, difficulty, fetched, resetRefreshTimestamp, resetQuestionStartTimestamp } = useQuizStore();
+
     
 
     useEffect(() => {
@@ -26,6 +26,9 @@ export default function Quiz() {
                 try {
                     
                     await new Promise((res) => setTimeout(res, 3000));
+
+                    resetQuestionStartTimestamp();
+                    resetRefreshTimestamp();
                     
                     const response = await fetch(`/api/questions?category=${topic}&difficulty=${difficulty}`)
                     

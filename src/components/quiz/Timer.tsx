@@ -11,7 +11,7 @@ export default function Timer({ duration = 15000, trigger, onComplete }: TimerPr
     
 
     const [timer, setTimer] = useState<number>(0);
-    const { refreshTimestamp, resetRefreshTimestamp } = useQuizStore();
+    const { refreshTimestamp, resetRefreshTimestamp, setQuestionStartTimestamp, questionStartTimestamp } = useQuizStore();
 
 
     
@@ -22,12 +22,15 @@ export default function Timer({ duration = 15000, trigger, onComplete }: TimerPr
 
         if (!trigger) return;
 
-        const elapsed = refreshTimestamp ? Date.now() - refreshTimestamp : 0;
+        const elapsed = refreshTimestamp && questionStartTimestamp ? refreshTimestamp - questionStartTimestamp : 0;
+        
         const initialTimer = Math.max(100 - (elapsed / duration) * 100, 0);
         setTimer(initialTimer);
 
         if (refreshTimestamp) {
             resetRefreshTimestamp();
+        } else {
+            setQuestionStartTimestamp(Date.now())
         }
 
         

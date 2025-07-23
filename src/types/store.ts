@@ -13,5 +13,7 @@ export type QuizState = {
     refreshTimestamp: number | null;
     setRefreshTimestamp: (ts: number) => void;
     resetRefreshTimestamp: () => void;
-
+    questionStartTimestamp: number | null;
+    setQuestionStartTimestamp: (ts: number) => void;
+    resetQuestionStartTimestamp: () => void;
 }

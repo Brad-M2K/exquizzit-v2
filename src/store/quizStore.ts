@@ -18,6 +18,10 @@ export const useQuizStore = create<QuizState>()(
             refreshTimestamp: null,
             setRefreshTimestamp: (ts) => set({ refreshTimestamp: ts }),
             resetRefreshTimestamp: () => set({ refreshTimestamp: null }),
+            questionStartTimestamp: null,
+            setQuestionStartTimestamp: (timestamp: number | null) => set({ questionStartTimestamp: timestamp }),
+            resetQuestionStartTimestamp: () => set({ questionStartTimestamp: null})
+            
         }),
         {
             name: 'quiz-storage',
@@ -26,4 +30,3 @@ export const useQuizStore = create<QuizState>()(
     )
 
 );
-
