@@ -10,4 +10,8 @@ export type QuizState = {
     setLoading: (loading: boolean) => void;
     fetched: boolean;
     setFetched: (fetched: boolean) => void;
+    refreshTimestamp: number | null;
+    setRefreshTimestamp: (ts: number) => void;
+    resetRefreshTimestamp: () => void;
+
 }

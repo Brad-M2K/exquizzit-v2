@@ -17,10 +17,12 @@ export default function SelectTopicPage() {
     
 
     const router = useRouter();
-    const setQuizOptions = useQuizStore((state) => state.setQuizOptions)
+    const { setQuizOptions, setQuestions, setFetched, setLoading } = useQuizStore.getState();
 
     const handleGameSetup = async () => {
-        console.log('Starting quiz with:', topic, difficulty)
+        setQuestions([]);
+        setFetched(false);
+        setLoading(true);
         setQuizOptions(String(topic), difficulty || 'mixed')
         setTimeout(() => {
             router.push(`/quiz`);
