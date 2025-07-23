@@ -1,19 +1,30 @@
 import { CleanedQuestion } from "./questions"
 
 export type QuizState = {
-    topic: string | null
-    difficulty: string | null
-    setQuizOptions: (topic: string, difficulty: string) => void
-    questions: CleanedQuestion[]
-    setQuestions: (questions: CleanedQuestion[]) => void
-    loading: boolean;
+    quizOptions: {
+        topic: string | null;
+        difficulty: string | null;
+    };
+    setQuizOptions: (topic: string, difficulty: string) => void;
+
+    gameplay: {
+        questions: CleanedQuestion[];
+        lives: number;
+        questionStartTimestamp: number | null;
+    };
+    setQuestions: (questions: CleanedQuestion[]) => void;
+    setLives: (lives: number) => void;
+    resetLives: () => void;
+    setQuestionStartTimestamp: (ts: number | null) => void;
+    resetQuestionStartTimestamp: () => void;
+
+    status: {
+        loading: boolean;
+        fetched: boolean;
+        refreshTimestamp: number | null;
+    };
     setLoading: (loading: boolean) => void;
-    fetched: boolean;
     setFetched: (fetched: boolean) => void;
-    refreshTimestamp: number | null;
     setRefreshTimestamp: (ts: number) => void;
     resetRefreshTimestamp: () => void;
-    questionStartTimestamp: number | null;
-    setQuestionStartTimestamp: (ts: number) => void;
-    resetQuestionStartTimestamp: () => void;
-}
+};

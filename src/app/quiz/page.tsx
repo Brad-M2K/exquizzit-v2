@@ -10,8 +10,10 @@ import { useEffect } from 'react';
 
 export default function Quiz() {
 
-    const { setLoading, setQuestions, setFetched } = useQuizStore();
-    const { topic, difficulty, fetched, resetRefreshTimestamp, resetQuestionStartTimestamp } = useQuizStore();
+    const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp } = useQuizStore();
+    const topic = useQuizStore((state) => state.quizOptions.topic);
+    const difficulty = useQuizStore((state) => state.quizOptions.difficulty);
+    const fetched = useQuizStore((state) => state.status.fetched)
 
     
 
@@ -54,7 +56,7 @@ export default function Quiz() {
     
             fetchQuestions();
     
-        }, [topic, difficulty, fetched, setLoading, setFetched, setQuestions]);
+        }, [topic, difficulty, fetched, setLoading, setFetched, setQuestions, resetQuestionStartTimestamp, resetRefreshTimestamp]);
 
 
 

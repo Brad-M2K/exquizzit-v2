@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const category = searchParams.get('category') || '9';
-    const amount = searchParams.get('amount') || '10';
+    const amount = searchParams.get('amount') || '15';
     const difficulty = searchParams.get('difficulty');
 
     let url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple`

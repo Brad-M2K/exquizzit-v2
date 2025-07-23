@@ -6,27 +6,59 @@ import { QuizState } from '@/types';
 export const useQuizStore = create<QuizState>()(
     persist(
         (set) => ({
-            topic: null,
-            difficulty: null,
-            setQuizOptions: (topic, difficulty) => set({ topic, difficulty }),
-            questions: [],
-            setQuestions: (questions) => set({ questions }),
-            loading: false,
-            setLoading: (loading) => set({ loading }),
-            fetched: false,
-            setFetched: (fetched) => set({ fetched }),
-            refreshTimestamp: null,
-            setRefreshTimestamp: (ts) => set({ refreshTimestamp: ts }),
-            resetRefreshTimestamp: () => set({ refreshTimestamp: null }),
-            questionStartTimestamp: null,
-            setQuestionStartTimestamp: (timestamp: number | null) => set({ questionStartTimestamp: timestamp }),
-            resetQuestionStartTimestamp: () => set({ questionStartTimestamp: null})
-            
+            quizOptions: {
+                topic: null,
+                difficulty: null,
+            },
+            setQuizOptions: (topic, difficulty) => set((state) => ({
+                quizOptions: {
+                    ...state.quizOptions,
+                    topic,
+                    difficulty,
+                },
+            })),
+
+            gameplay: {
+                questions: [],
+                lives: 3,
+                questionStartTimestamp: null,
+            },
+            setQuestions: (questions) => set((state) => ({
+                gameplay: { ...state.gameplay, questions }
+            })),
+            setLives: (lives) => set((state) => ({
+                gameplay: { ...state.gameplay, lives }
+            })),
+            resetLives: () => set((state) => ({
+                gameplay: { ...state.gameplay, lives: 3 }
+            })),
+            setQuestionStartTimestamp: (timestamp: number | null) => set((state) => ({
+                gameplay: { ...state.gameplay, questionStartTimestamp: timestamp }
+            })),
+            resetQuestionStartTimestamp: () => set((state) => ({
+                gameplay: { ...state.gameplay, questionStartTimestamp: null }
+            })),
+
+            status: {
+                loading: false,
+                fetched: false,
+                refreshTimestamp: null,
+            },
+            setLoading: (loading) => set((state) => ({
+                status: { ...state.status, loading }
+            })),
+            setFetched: (fetched) => set((state) => ({
+                status: { ...state.status, fetched }
+            })),
+            setRefreshTimestamp: (ts) => set((state) => ({
+                status: { ...state.status, refreshTimestamp: ts }
+            })),
+            resetRefreshTimestamp: () => set((state) => ({
+                status: { ...state.status, refreshTimestamp: null }
+            })),
         }),
         {
             name: 'quiz-storage',
         }
-        
     )
-
 );

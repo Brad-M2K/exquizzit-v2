@@ -14,9 +14,8 @@ import { CleanedQuestion } from '@/types';
 export default function QuestionCard() {
 
 
-    // const [questions, setQuestions] = useState<CleanedQuestion[]>([]);
-
-    const { questions, loading } = useQuizStore();
+    const loading = useQuizStore((state) => state.status.loading);
+    const questions = useQuizStore((state) => state.gameplay.questions)
     
     const [currentIndex, setCurrentIndex] = useState<number>(3)
     const currentQuestion: CleanedQuestion | undefined = questions[currentIndex]
@@ -39,7 +38,7 @@ export default function QuestionCard() {
         const saved = localStorage.getItem("quiz-refresh-timestamp");
         if (saved) {
             const savedTime = parseInt(saved, 10);
-            console.log("Restored timestamp from last refresh:", savedTime);
+
             setRefreshTimestamp(savedTime);
         }
         

@@ -5,13 +5,15 @@ import { TimerProps } from '@/types';
 import clsx from 'clsx';
 import { useQuizStore } from '@/store/quizStore';
 
-export default function Timer({ duration = 15000, trigger, onComplete }: TimerProps) {
+export default function Timer({ duration = 17000, trigger, onComplete }: TimerProps) {
 
     
     
 
     const [timer, setTimer] = useState<number>(0);
-    const { refreshTimestamp, resetRefreshTimestamp, setQuestionStartTimestamp, questionStartTimestamp } = useQuizStore();
+    const { resetRefreshTimestamp, setQuestionStartTimestamp } = useQuizStore();
+    const questionStartTimestamp = useQuizStore((state) => state.gameplay.questionStartTimestamp)
+    const refreshTimestamp = useQuizStore((state) => state.status.refreshTimestamp)
 
 
     
@@ -19,7 +21,6 @@ export default function Timer({ duration = 15000, trigger, onComplete }: TimerPr
 
     useEffect(() => {
         console.log(refreshTimestamp)
-
         if (!trigger) return;
 
         const elapsed = refreshTimestamp && questionStartTimestamp ? refreshTimestamp - questionStartTimestamp : 0;
@@ -40,7 +41,7 @@ export default function Timer({ duration = 15000, trigger, onComplete }: TimerPr
             const next = prev - 1;
                 if (next <= 0) {
                     clearInterval(interval);
-                    setTimeout(onComplete, 0); // ! stops useEffect on render issue
+                    setTimeout(onComplete, 0); 
                     
                     return 0;
                 }
@@ -60,12 +61,12 @@ export default function Timer({ duration = 15000, trigger, onComplete }: TimerPr
 
     return (
         <div className={clsx("h-2 bg-white/20 rounded overflow-hidden mb-2 shadow-lg",
-            timer < 44 && 'animate-fast-pulse'
+            timer < 33 && 'animate-fast-pulse'
         )}
         >
             <div
                 className={clsx("h-full magic-shimmer-timer transition-all duration-100",
-                timer < 44 && 'animate-fast-pulse'
+                timer < 33 && 'animate-fast-pulse'
                 )}
                 style={{ width: `${timer}%` }}
             />
