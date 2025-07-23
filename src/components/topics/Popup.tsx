@@ -8,10 +8,30 @@ import clsx from 'clsx';
 export default function Popup({ topic, difficulty, setDifficulty, onStart, setShowPopup }: PopupProps) {
 
     const [shouldBounce, setShouldBounce] = useState(false);
+    const [countdown, setCountdown] = useState<number | null>(null);
 
     // Find the topic object by name
     const selectedTopic = topics.find((t) => t.name === topic);
     const message = selectedTopic?.message;
+
+
+    const handleLetsGo = () => {
+        let seconds = 3;
+        setCountdown(seconds);
+        setShouldBounce(true);
+        onStart();
+
+        const interval = setInterval(() => {
+            seconds--;
+            if (seconds === 0) {
+                clearInterval(interval);
+                setCountdown(null)
+            } else {
+                setCountdown(seconds);
+            }
+        }, 1000)
+    };
+
 
     return (
         <div
@@ -45,15 +65,13 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
                     Back
                 </button>
                 <button
-                    onClick={() => {
-                        setShouldBounce(true);
-                        onStart()
-                    }}
+                    onClick={handleLetsGo}
+                    disabled={countdown !== null}
                     className={clsx("bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer",
                         shouldBounce && 'animate-bounce'
                     )}
                 >
-                    confirm and let&#39;s go!
+                    {countdown !== null ? countdown : "Let's go!"}
                 </button>
             </div>
         </div>
