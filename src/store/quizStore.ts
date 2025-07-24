@@ -64,7 +64,7 @@ export const useQuizStore = create<QuizState>()(
             name: 'quiz-storage',
             partialize: (state) => ({
                 gameplay: state.gameplay,
-                status: state.status.refreshTimestamp,
+                status: state.status,
             }),
             
         }
