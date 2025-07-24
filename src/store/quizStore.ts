@@ -22,6 +22,7 @@ export const useQuizStore = create<QuizState>()(
                 questions: [],
                 lives: 3,
                 questionStartTimestamp: null,
+                selectedAnswer: null,
             },
             setQuestions: (questions) => set((state) => ({
                 gameplay: { ...state.gameplay, questions }
@@ -32,13 +33,15 @@ export const useQuizStore = create<QuizState>()(
             resetLives: () => set((state) => ({
                 gameplay: { ...state.gameplay, lives: 3 }
             })),
-            setQuestionStartTimestamp: (timestamp: number | null) => set((state) => ({
+            setQuestionStartTimestamp: (timestamp) => set((state) => ({
                 gameplay: { ...state.gameplay, questionStartTimestamp: timestamp }
             })),
             resetQuestionStartTimestamp: () => set((state) => ({
                 gameplay: { ...state.gameplay, questionStartTimestamp: null }
             })),
-
+            setSelectedAnswer: (selectedAnswer) => set((state) => ({
+                gameplay: { ...state.gameplay, selectedAnswer }
+            })),
             status: {
                 loading: false,
                 fetched: false,
@@ -59,6 +62,11 @@ export const useQuizStore = create<QuizState>()(
         }),
         {
             name: 'quiz-storage',
+            partialize: (state) => ({
+                gameplay: state.gameplay,
+                status: state.status.refreshTimestamp,
+            }),
+            
         }
     )
 );

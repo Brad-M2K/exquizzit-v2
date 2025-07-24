@@ -20,7 +20,6 @@ export default function Timer({ duration = 17000, trigger, onComplete }: TimerPr
     
 
     useEffect(() => {
-        console.log(refreshTimestamp)
         if (!trigger) return;
 
         const elapsed = refreshTimestamp && questionStartTimestamp ? refreshTimestamp - questionStartTimestamp : 0;
@@ -60,13 +59,13 @@ export default function Timer({ duration = 17000, trigger, onComplete }: TimerPr
 
 
     return (
-        <div className={clsx("h-2 bg-white/20 rounded overflow-hidden mb-2 shadow-lg",
-            timer < 33 && 'animate-fast-pulse'
+        <div className={clsx("h-2 bg-white/20 rounded overflow-hidden mb-8 shadow-lg",
+            timer < 33 && timer > 0 && 'animate-fast-pulse'
         )}
         >
             <div
                 className={clsx("h-full magic-shimmer-timer transition-all duration-100",
-                timer < 33 && 'animate-fast-pulse'
+                timer < 33 && timer > 0 && 'animate-fast-pulse'
                 )}
                 style={{ width: `${timer}%` }}
             />

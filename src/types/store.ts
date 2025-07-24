@@ -11,12 +11,14 @@ export type QuizState = {
         questions: CleanedQuestion[];
         lives: number;
         questionStartTimestamp: number | null;
+        selectedAnswer: string | null;
     };
     setQuestions: (questions: CleanedQuestion[]) => void;
     setLives: (lives: number) => void;
     resetLives: () => void;
     setQuestionStartTimestamp: (ts: number | null) => void;
     resetQuestionStartTimestamp: () => void;
+    setSelectedAnswer: (answer: string | null) => void;
 
     status: {
         loading: boolean;

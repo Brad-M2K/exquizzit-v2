@@ -3,19 +3,19 @@ export default function QuizSkeleton() {
         <>
             
                 {/* Fake question line */}
-                <div className="h-50 bg-white/40 rounded-md animate-pulse mb-5" />
+                <div className="h-50 bg-white/40 rounded-md animate-pulse mb-5 lg:h-80" />
             
                 {/* Timer */}
                 <div className="h-2 bg-white/40 rounded-md animate-pulse mb-2"/>
 
                 {/* Fake answers in 2x2 grid */}
                 <div className="grid grid-cols-2 gap-4 mt-18">
-                    <div className="h-20 bg-white/40 rounded-md animate-pulse" />
-                    <div className="h-20 bg-white/40 rounded-md animate-pulse" />
-                    <div className="h-20 bg-white/40 rounded-md animate-pulse" />
-                    <div className="h-20 bg-white/40 rounded-md animate-pulse" />
+                    <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
+                    <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
+                    <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
+                    <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
                 </div>
             
         </>
     );
-}
+} 

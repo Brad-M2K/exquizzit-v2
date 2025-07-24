@@ -35,17 +35,17 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
 
     return (
         <div
-            className="bg-gray-900/50 backdrop-blur-3xl border border-[rgba(168,85,247,0.15)] rounded-xl shadow-lg p-6 flex flex-col items-center gap-6 min-h-80 max-w-sm w-[90%] lg:max-w-lg lg:max-height-lg"
+            className="bg-gray-900/50 backdrop-blur-3xl border border-[rgba(168,85,247,0.15)] rounded-xl shadow-lg p-6 flex flex-col items-center justify-center gap-6 min-h-80 max-w-sm w-[90%] lg:max-w-lg lg:max-h-lg l"
         >
             <div className="flex flex-col items-center justify-center">
                 <h1
-                className="font-semibold magic-shimmer-text text-3xl"
+                    className="font-semibold magic-shimmer-text text-3xl lg:text-5xl font-bitcount"
                 >
                     {selectedTopic?.name}
                 </h1>
                 <p
                     
-                    className="text-lg font-semibold px-3 text-center text-[#00ffee]"
+                    className="text-lg lg:text-3xl font-semibold px-3 py-5 text-center text-[#00ffee]"
                 >
                     {message}
                 </p>
@@ -56,18 +56,19 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
                 setDifficulty={setDifficulty}
             />
             <div
-                className="flex justify-between gap-4"
+                className="flex justify-between gap-7"
             >
                 <button
-                onClick={() => setShowPopup(false)}
-                className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer"
+                    onClick={() => setShowPopup(false)}
+                    disabled={countdown !== null}
+                    className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer min-w-20 lg:min-w-30 lg:min-h-10 lg:text-lg"
                 >
                     Back
                 </button>
                 <button
                     onClick={handleLetsGo}
                     disabled={countdown !== null}
-                    className={clsx("bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer",
+                    className={clsx("bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer min-width-20 lg:min-w-30 min-w-25 lg:min-h-10 lg:text-lg",
                         shouldBounce && 'animate-bounce'
                     )}
                 >

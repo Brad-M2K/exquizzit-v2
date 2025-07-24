@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        bitcount: ["Bitcount Prop Double"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

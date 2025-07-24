@@ -6,6 +6,7 @@ import { useQuizStore } from '@/store/quizStore';
 import { useEffect } from 'react';
 import { cleanQuestion } from '@/utils/cleanQuestion';
 import { RawTriviaQuestion, CleanedQuestion } from '@/types';
+import "@fontsource/bitcount-prop-double"; 
 
 
 
@@ -23,13 +24,13 @@ export default function Quiz() {
 
         const fetchQuestions = async (): Promise<void> => {
             try {
-                await new Promise((res) => setTimeout(res, 3000));
+                // await new Promise((res) => setTimeout(res, 3000));
 
                 resetQuestionStartTimestamp();
                 resetRefreshTimestamp();
 
                 const url = new URL('https://opentdb.com/api.php');
-                url.searchParams.set('amount', '10');
+                url.searchParams.set('amount', '20');
                 url.searchParams.set('category', topic);
                 if (difficulty !== 'mixed') {
                     url.searchParams.set('difficulty', difficulty);
@@ -47,6 +48,7 @@ export default function Quiz() {
                 setLoading(false);
 
                 console.log('Answers for development purposes only:', cleaned.map(q => q.correctAnswer)); // TODO: Remove in production
+
             } catch (err) {
                 console.error('Error fetching questions:', err);
             }
@@ -61,7 +63,7 @@ export default function Quiz() {
             <header className='flex items-center justify-center'>
                 <Header/>
             </header>
-            <main className="flex-1 flex flex-col justify-center items-center w-full">
+            <main className="flex-1 flex flex-col justify-center items-center w-full h-full">
                 <QuizCard />
             </main>
         </div>

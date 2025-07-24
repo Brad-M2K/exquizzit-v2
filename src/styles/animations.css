@@ -1,3 +1,33 @@
+@keyframes red-throb {
+    0% {
+        background-color: #891818; /* Tailwind red-600 */
+        box-shadow: 0 0 0 0 rgba(220,38,38,0.7);
+        transform: scale(1);
+    }
+    20% {
+        background-color: #7d1313; /* Tailwind red-700 */
+        box-shadow: 0 0 16px 4px rgba(135, 22, 22, 0.7);
+        transform: scale(1.08);
+    }
+    40% {
+        background-color: #961616;
+        box-shadow: 0 0 0 0 rgba(220,38,38,0.7);
+        transform: scale(1);
+    }
+    100% {
+        background-color: #7c3aed; /* Tailwind purple-600 */
+        box-shadow: 0 0 0 0 rgba(124,58,237,0.7);
+        transform: scale(1);
+    }
+}
+
+.red-throb-button {
+    animation: red-throb 2s ease-in-out infinite;
+    background-color: #891919 !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 0 rgba(220,38,38,0.7);
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
 @keyframes shimmer {
     0% {
         background-position: -200% 0;
@@ -17,7 +47,21 @@
     }
 
     50% {
-        transform: scale(1.08);
+        transform: scale(1.2);
+        opacity: 0.85;
+    }
+}
+
+@keyframes selected-throb {
+
+    0%,
+    100% {
+        transform: scale(0.95);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.02);
         opacity: 0.85;
     }
 }
@@ -40,6 +84,10 @@
 
 .throb-button {
     animation: throb 2s ease-in-out infinite;
+}
+
+.selected-throb-button {
+    animation: selected-throb 2s ease-in-out infinite;
 }
 
 .magic-shimmer-text {

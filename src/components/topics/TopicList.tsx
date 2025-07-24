@@ -16,7 +16,7 @@ export default function TopicsList({ topics, setTopic, setShowPopup}: TopicListP
                         setTopic(t.id)
                         setShowPopup(true)
                     }}
-                    className="transition cursor-pointer bg-gray-900/30 hover:bg-purple-800 active:bg-purple-900 p-6 rounded-2xl shadow-lg font-semibold text-purple-100 text-lg border-2 border-transparent hover:border-purple-500 focus:border-purple-500 outline-none focus:outline-none text-center"
+                    className="transition cursor-pointer bg-gray-900/30 hover:bg-purple-800 active:bg-purple-900 p-6 rounded-2xl shadow-lg font-semibold text-purple-100 text-lg border-2 border-transparent hover:border-purple-500 focus:border-purple-500 outline-none focus:outline-none text-center lg:text-3xl"
                 >
                 {t.name}
                 </li>

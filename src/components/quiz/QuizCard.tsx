@@ -17,13 +17,12 @@ export default function QuestionCard() {
 
     const loading = useQuizStore((state) => state.status.loading);
     const questions = useQuizStore((state) => state.gameplay.questions)
+    const { setRefreshTimestamp } = useQuizStore();
     
     const [currentIndex, setCurrentIndex] = useState<number>(3)
     const currentQuestion: CleanedQuestion | undefined = questions[currentIndex]
-    const [selectedAnswer, setSelectedAnswer] = useState<string | null>();
     const [timerEnded, setTimerEnded] = useState(false);
 
-    const { setRefreshTimestamp } = useQuizStore();
     
 
     useEffect(() => {
@@ -59,7 +58,7 @@ export default function QuestionCard() {
     }, [currentIndex]);
 
     const handleTimerComplete = useCallback(() => {
-        setSelectedAnswer(null);
+        
         setTimerEnded(true);
         
     }, []);
@@ -70,26 +69,29 @@ export default function QuestionCard() {
     return (
         <div className="w-full px-4">
 
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 shadow-2xl border border-white/20 mx-auto w-[350px] sm:w-[400px] md:w-[500px] lg:w-[600px]">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 shadow-2xl border border-white/20 mx-auto w-[350px] sm:max-w-[400px]  lg:max-w-160 w-auto h-auto">
                 {loading || !questions.length ? (
                     <QuizSkeleton />
-                ) : timerEnded ? (
-                        <QuestionIntermission
-                            setTimerEnded={setTimerEnded}
-                            nextQuestion={setCurrentIndex}
-                        />
                 ) : (
                     <>
                         <Question question={currentQuestion?.questionText} />
-                        <Timer
-                            key={currentIndex}
-                            trigger={isTimerActive}
-                            onComplete={handleTimerComplete}
-                        />
+                        {!timerEnded ? (
+                            <Timer
+                                key={currentIndex}
+                                trigger={isTimerActive}
+                                onComplete={handleTimerComplete}
+                            />
+                        
+                        ) : (
+                            
+                            <QuestionIntermission
+                                setCurrentIndex={setCurrentIndex}
+                                setTimerEnded={setTimerEnded}
+                            />
+                        )}
                         <AnswerGrid
+                            timerEnded={timerEnded}
                             answers={currentQuestion?.answers || []}
-                            setAnswer={setSelectedAnswer}
-                            userChoice={selectedAnswer}
                         />
                     </>
                 )}
