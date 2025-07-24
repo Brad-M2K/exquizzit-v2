@@ -1,4 +1,6 @@
-export default function AnswerGrid({ answers, setAnswer, userChoice }) {
+import { AnswerGridProps } from '@/types';
+
+export default function AnswerGrid({ answers, setAnswer, userChoice }: AnswerGridProps) {
     
     const colourClasses = [
         "bg-red-600/40 hover:bg-red-700/40",
