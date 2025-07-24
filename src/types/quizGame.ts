@@ -5,3 +5,8 @@ export type TimerProps = {
     
     
 }
+
+export type QuestionIntermissionProps = {
+    setTimerEnded: React.Dispatch<React.SetStateAction<boolean>>;
+    nextQuestion: React.Dispatch<React.SetStateAction<number>>;
+};

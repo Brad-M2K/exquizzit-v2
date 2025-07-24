@@ -4,7 +4,7 @@ import QuizCard from '@/components/quiz/QuizCard';
 import Header from '@/components/quiz/Header';
 import { useQuizStore } from '@/store/quizStore';
 import { useEffect } from 'react';
-// import { CleanedQuestion } from '@/types';
+import { CleanedQuestion } from '@/types';
 
 
 
@@ -20,7 +20,6 @@ export default function Quiz() {
     useEffect(() => {
             if (!topic || !difficulty) return;
             if (fetched) return;
-    
             
             
             const fetchQuestions = async (): Promise<void> => {
@@ -42,21 +41,18 @@ export default function Quiz() {
                         return;
                     }
                     
-                    const data = await response.json()
-    
+                    const data: CleanedQuestion[] = await response.json()
                     setQuestions(data)
-    
+                    
                     console.log('Answers for development purposes only:', data.map(q => q.correctAnswer)) //TODO remove in production
                     
                 } catch (err: unknown) {
                     console.error('Error fetching questions:', err)
                 }
-    
             };
-    
             fetchQuestions();
     
-        }, [topic, difficulty, fetched, setLoading, setFetched, setQuestions, resetQuestionStartTimestamp, resetRefreshTimestamp]);
+    }, [topic, difficulty, fetched, setLoading, setFetched, setQuestions, resetQuestionStartTimestamp, resetRefreshTimestamp]);
 
 
 
