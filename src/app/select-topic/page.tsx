@@ -11,25 +11,31 @@ import '@/styles/animations.css';
 
 
 export default function SelectTopicPage() {
+
+    const router = useRouter();
     
     const [topic, setTopic] = useState<number | undefined>();
-    const [difficulty, setDifficulty] = useState<string | 'mixed'>();
+    const [difficulty, setDifficulty] = useState<string | 'mixed'>('mixed');
     const [showPopup, setShowPopup] = useState(false);
     
 
-    const router = useRouter();
+    
     const { setQuizOptions, setQuestions, setFetched, setLoading } = useQuizStore();
 
     const handleGameSetup = async () => {
         setQuestions([]);
         setFetched(false);
         setLoading(true);
-        setQuizOptions(String(topic), difficulty || 'mixed')
-        setTimeout(() => {
-            router.push(`/quiz`);
-        }, 3000) //* 3 second timer before starting quiz load
-        
+        setQuizOptions(String(topic), String(difficulty))
+        const query = new URLSearchParams({
+            category: String(topic),
+            difficulty: String(difficulty),
+        }).toString();
 
+        setTimeout(() => {
+            router.push(`/quiz?${query}`);
+
+        }, 3000) //* 3 second timer before starting quiz load
     }
     
     return (

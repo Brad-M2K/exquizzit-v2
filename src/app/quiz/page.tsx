@@ -7,54 +7,76 @@ import { useEffect } from 'react';
 import { cleanQuestion } from '@/utils/cleanQuestion';
 import { RawTriviaQuestion, CleanedQuestion } from '@/types';
 import "@fontsource/bitcount-prop-double"; 
+import { useSearchParams } from 'next/navigation';
 
 
 
 export default function Quiz() {
 
-    const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp } = useQuizStore();
-    const topic = useQuizStore((state) => state.quizOptions.topic);
-    const difficulty = useQuizStore((state) => state.quizOptions.difficulty);
-    const fetched = useQuizStore((state) => state.status.fetched)
+    const searchParams = useSearchParams();
 
+    const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions } = useQuizStore();
+    const storedTopic = useQuizStore((state) => state.quizOptions.topic);
+    const storedDifficulty = useQuizStore((state) => state.quizOptions.difficulty);
+    const fetched = useQuizStore((state) => state.status.fetched);
+    
+
+    const urlTopic = searchParams.get('category');
+    const urlDifficulty = searchParams.get('difficulty');
     
 
     useEffect(() => {
-        if (!topic || !difficulty || fetched) return;
+        if (urlTopic && urlDifficulty && (!storedTopic || !storedDifficulty)) {
+            setQuizOptions(urlTopic, urlDifficulty);
+        }
+    }, [urlTopic, urlDifficulty, storedTopic, storedDifficulty, setQuizOptions]);
 
+    useEffect(() => {
+        if (!storedTopic || !storedDifficulty || fetched) {
+            return;
+        }
         const fetchQuestions = async (): Promise<void> => {
+            
             try {
-                // await new Promise((res) => setTimeout(res, 3000));
+                // await new Promise((res) => setTimeout(res, 3000)); //TODO remove when mvp hit but here just in case need it to test skeleton loader
 
                 resetQuestionStartTimestamp();
                 resetRefreshTimestamp();
 
                 const url = new URL('https://opentdb.com/api.php');
                 url.searchParams.set('amount', '20');
-                url.searchParams.set('category', topic);
-                if (difficulty !== 'mixed') {
-                    url.searchParams.set('difficulty', difficulty);
-                }
+                url.searchParams.set('category', storedTopic);
                 url.searchParams.set('type', 'multiple');
-
+                if (storedDifficulty !== 'mixed') {
+                    url.searchParams.set('difficulty', storedDifficulty);
+                }
+                
                 const res = await fetch(url.toString());
                 if (!res.ok) throw new Error(`API error: ${res.status} ${res.statusText}`);
 
                 const { results }: { results: RawTriviaQuestion[] } = await res.json();
+
+                if (!results.length) {
+                    throw new Error('No questions returned from API');
+                }
+
                 const cleaned: CleanedQuestion[] = results.map(cleanQuestion);
 
                 setQuestions(cleaned);
                 setFetched(true);
                 setLoading(false);
 
-                console.log('Answers for development purposes only:', cleaned.map(q => q.correctAnswer)); // TODO: Remove in production
+                if (cleaned) {
+                    console.info('Questions & Answers for development purposes only:')
+                    console.table(cleaned); // TODO: Remove in production
+                }
 
             } catch (err) {
                 console.error('Error fetching questions:', err);
             }
         };
         fetchQuestions();
-    }, [topic, difficulty, fetched, setLoading, setFetched, setQuestions, resetQuestionStartTimestamp, resetRefreshTimestamp]);
+    }, [storedTopic, storedDifficulty, fetched]);
 
 
 

@@ -92,6 +92,7 @@ export default function QuestionCard() {
                         <AnswerGrid
                             timerEnded={timerEnded}
                             answers={currentQuestion?.answers || []}
+                            correctAnswer={currentQuestion?.correctAnswer}
                         />
                     </>
                 )}

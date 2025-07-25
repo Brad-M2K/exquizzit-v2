@@ -63,6 +63,7 @@ export const useQuizStore = create<QuizState>()(
         {
             name: 'quiz-storage',
             partialize: (state) => ({
+                quizOptions: state.quizOptions,
                 gameplay: state.gameplay,
                 status: state.status,
             }),
