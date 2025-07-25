@@ -12,6 +12,7 @@ export type QuestionIntermissionProps = {
 };
 
 export type AnswerGridProps = {
-    timerEnded: boolean
+    timerEnded: boolean;
     answers: string[];
+    correctAnswer?: string;
 };
