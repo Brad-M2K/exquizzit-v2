@@ -3,16 +3,13 @@
 import QuizCard from '@/components/quiz/QuizCard';
 import Header from '@/components/quiz/Header';
 import { useQuizStore } from '@/store/quizStore';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { cleanQuestion } from '@/utils/cleanQuestion';
 import { RawTriviaQuestion, CleanedQuestion } from '@/types';
 import "@fontsource/bitcount-prop-double"; 
 import { useSearchParams } from 'next/navigation';
 
-
-
-export default function Quiz() {
-
+function QuizContent() {
     const searchParams = useSearchParams();
 
     const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions } = useQuizStore();
@@ -90,4 +87,12 @@ export default function Quiz() {
             </main>
         </div>
     )
+}
+
+export default function Quiz() {
+    return (
+        <Suspense>
+            <QuizContent />
+        </Suspense>
+    );
 }
