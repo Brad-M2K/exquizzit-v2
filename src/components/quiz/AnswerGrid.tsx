@@ -3,11 +3,11 @@ import '@/styles/animations.css';
 import { useQuizStore } from '@/store/quizStore';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import { useHydrated } from "@/hooks/useHydrated";
+// import { useHydrated } from "@/hooks/useHydrated";
 
 export default function AnswerGrid({ answers, timerEnded, correctAnswer }: AnswerGridProps) {
 
-        const hydrated = useHydrated();
+        // const hydrated = useHydrated();
         
         const selectedAnswer = useQuizStore((state) => state.gameplay.selectedAnswer);
         const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
@@ -48,7 +48,7 @@ export default function AnswerGrid({ answers, timerEnded, correctAnswer }: Answe
             `bg-green-600/40 ${!timerEnded && 'hover:bg-green-700/40'}`,
         ];
         
-        if (!hydrated) return null;
+        // if (!hydrated) return null;
 
     return (
         <div className="grid grid-cols-2 gap-4 mt-18">

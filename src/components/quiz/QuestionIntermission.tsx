@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { QuestionIntermissionProps } from '@/types';
 import { useQuizStore } from '@/store/quizStore';
-import { useHydrated } from "@/hooks/useHydrated";
+// import { useHydrated } from "@/hooks/useHydrated";
 
 
 
 export default function QuestionIntermission({ setTimerEnded }: QuestionIntermissionProps) {
     
-    const hydrated = useHydrated();
+    // const hydrated = useHydrated();
     
     const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
     const setCurrentIndex = useQuizStore((state) => state.setCurrentIndex);
@@ -43,7 +43,7 @@ export default function QuestionIntermission({ setTimerEnded }: QuestionIntermis
         
     }, [questionWrong])
     
-    if (!hydrated) return null;
+    // if (!hydrated) return null;
 
     return (
         <div className='flex flex-col justify-center items-center px-4'>

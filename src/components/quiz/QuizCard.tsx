@@ -7,19 +7,19 @@ import { useState, useEffect, useCallback } from 'react';
 import { useQuizStore } from '@/store/quizStore'
 import QuizSkeleton from '@/components/Skeletons/QuizSkeleton';
 import QuestionIntermission from '@/components/quiz/QuestionIntermission';
-import { useHydrated } from "@/hooks/useHydrated";
+// import { useHydrated } from "@/hooks/useHydrated";
 
 
 
 export default function QuestionCard() {
-    const hydrated = useHydrated();
+    // const hydrated = useHydrated();
     
     
     const loading = useQuizStore((state) => state.status.loading);
     const questions = useQuizStore((state) => state.gameplay.questions)
     const { setRefreshTimestamp } = useQuizStore();
     
-    const currentIndex = useQuizStore((state) => state.gameplay.currentIndex);
+    // const currentIndex = useQuizStore((state) => state.gameplay.currentIndex);
     const currentQuestion = useQuizStore((state) => state.getCurrentQuestion());
     const [timerEnded, setTimerEnded] = useState(false);
     
@@ -56,7 +56,7 @@ export default function QuestionCard() {
     }, []);
     
     
-    if (!hydrated) return null;
+    // if (!hydrated) return null;
 
 
     return (
@@ -70,7 +70,7 @@ export default function QuestionCard() {
                         <Question question={currentQuestion?.questionText} />
                         {!timerEnded ? (
                             <Timer
-                                key={currentIndex}
+                                // key={currentIndex}
                                 onComplete={handleTimerComplete}
                             />
                         
