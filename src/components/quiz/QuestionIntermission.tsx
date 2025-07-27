@@ -3,10 +3,12 @@ import { QuestionIntermissionProps } from '@/types';
 import { useQuizStore } from '@/store/quizStore';
 // import { useRouter } from 'next/navigation';
 
-export default function QuestionIntermission({ setCurrentIndex, setTimerEnded }: QuestionIntermissionProps) {
+export default function QuestionIntermission({ setTimerEnded }: QuestionIntermissionProps) {
     
     
-    const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer)
+    const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
+    const setCurrentIndex = useQuizStore((state) => state.setCurrentIndex);
+    const currentIndex = useQuizStore((state) => state.gameplay.currentIndex);
     const [shouldSpin, setShouldSpin] = useState(true);
     const [shouldBounce, setShouldBounce] = useState(true);
     const [questionWrong, setQuestionWrong] = useState(false);
@@ -34,7 +36,7 @@ export default function QuestionIntermission({ setCurrentIndex, setTimerEnded }:
 
         setTimeout(() => {
             setQuestionWrong(false);
-        },8000)
+        }, 8000)
         
     }, [questionWrong])
 
@@ -46,9 +48,9 @@ export default function QuestionIntermission({ setCurrentIndex, setTimerEnded }:
                     onClick={() => {
                         setTimerEnded(false);
                         setSelectedAnswer(null);
-                        setCurrentIndex((prev: number) => prev + 1)
+                        setCurrentIndex(currentIndex + 1)
                     }}
-                    className={`bg-purple-900/60 text-white text-sm rounded-xl hover:text-gray-300 px-6 py-2 font-semibold text-lg shadow transition-colors duration-150 w-auto min-w-[140px] max-w-full lg:text-xl  ${shouldBounce && 'animate-bounce'} ${shouldSpin && 'animate-spin'}`}
+                    className={`bg-purple-900/60 text-white text-sm rounded-2xl hover:text-gray-300 px-6 py-2 font-semibold text-lg shadow transition-colors duration-150 w-auto min-w-[140px] max-w-full lg:text-xl  cursor-pointer ${shouldBounce && 'animate-bounce'} ${shouldSpin && 'animate-spin'}`}
                     
                 >
                     <span className='magic-shimmer-text'>
@@ -60,7 +62,7 @@ export default function QuestionIntermission({ setCurrentIndex, setTimerEnded }:
                     onClick={() => {
                         // setShowEndGame(true);
                     }}
-                    className={`bg-red-900/60 text-white text-sm rounded-xl hover:text-gray-300 px-6 py-2 font-semibold text-lg shadow transition-colors duration-150 w-auto min-w-[140px] max-w-full lg:text-xl  ${shouldPulse && 'red-throb-button'}`}
+                    className={`bg-red-900/60 text-white text-sm rounded-2xl hover:text-gray-300 px-6 py-2 font-semibold text-lg shadow transition-colors duration-150 w-auto min-w-[140px] max-w-full lg:text-xl cursor-pointer  ${shouldPulse && 'red-throb-button'}`}
                     >
                         <span className={`${shouldPulse && 'animate-fast-pulse'}`}>Unlucky! End Game</span>
                 </button>

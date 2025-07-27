@@ -9,16 +9,22 @@ export type QuizState = {
 
     gameplay: {
         questions: CleanedQuestion[];
+        currentIndex: number;
         lives: number;
         questionStartTimestamp: number | null;
         selectedAnswer: string | null;
+        score: number;
     };
+    getCurrentQuestion: () => CleanedQuestion | null;
     setQuestions: (questions: CleanedQuestion[]) => void;
-    setLives: (lives: number) => void;
+    setCurrentIndex: (currentIndex: number) => void;
+    decrementLives: () => void;
     resetLives: () => void;
     setQuestionStartTimestamp: (ts: number | null) => void;
     resetQuestionStartTimestamp: () => void;
     setSelectedAnswer: (answer: string | null) => void;
+    incrementScore: () => void;
+    resetScore: () => void;
 
     status: {
         loading: boolean;

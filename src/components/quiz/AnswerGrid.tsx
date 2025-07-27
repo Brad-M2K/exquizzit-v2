@@ -1,11 +1,39 @@
 import { AnswerGridProps } from '@/types';
 import '@/styles/animations.css';
 import { useQuizStore } from '@/store/quizStore';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
-export default function AnswerGrid({ answers, timerEnded }: AnswerGridProps) {
+export default function AnswerGrid({ answers, timerEnded, correctAnswer }: AnswerGridProps) {
 
-        const selectedAnswer = useQuizStore((state) => state.gameplay.selectedAnswer);
-        const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
+    const selectedAnswer = useQuizStore((state) => state.gameplay.selectedAnswer);
+    const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
+    const incrementScore = useQuizStore((state) => state.incrementScore);
+    const decrementLives = useQuizStore((state) => state.decrementLives);
+    const score = useQuizStore((state) => state.gameplay.score);
+
+    
+
+    useEffect(() => {
+        if (timerEnded) {
+
+            console.log(score)
+
+            if (selectedAnswer === correctAnswer) {
+                incrementScore();
+                toast.success('Correct!')
+                console.log(score)
+            } else {
+                decrementLives();
+                toast.error('Wrong answer!')
+            }
+        }
+
+        if (timerEnded && selectedAnswer === null) {
+            toast.error('Time ran out! No answer selected')
+        }
+
+    }, [timerEnded]);
 
     
     const colourClasses = [
@@ -23,7 +51,7 @@ export default function AnswerGrid({ answers, timerEnded }: AnswerGridProps) {
                     key={idx}
                     onClick={() => setSelectedAnswer(answer)}
                     disabled={timerEnded}
-                    className={`min-h-20 lg:min-h-30 lg:min-w-20 px-3 py-1 shadow-lg rounded-xl lg:rounded-2xl text-center flex items-center justify-center text-gray-200 font-bold text-sm lg:text-xl cursor-pointer ${!timerEnded && selectedAnswer !== answer ? 'hover:scale-105 ' : ''}  ${colourClasses[idx]} ${selectedAnswer === answer ? 'ring-3 ring-[#00ffff]/80 selected-throb-button'  : ''}`}
+                    className={`min-h-20 lg:min-h-30 lg:min-w-20 px-3 py-1 shadow-lg rounded-2xl lg:rounded-2xl text-center flex items-center justify-center text-gray-200 font-bold text-sm lg:text-xl cursor-pointer ${!timerEnded && selectedAnswer !== answer ? 'hover:scale-105 ' : ''}  ${colourClasses[idx]} ${selectedAnswer === answer && !timerEnded ? 'ring-3 ring-[#00ffff]/80 selected-throb-button'  : ''} ${timerEnded && selectedAnswer === answer && selectedAnswer !== correctAnswer  ? 'ring-3 ring-red-500' : ''} ${timerEnded && answer === correctAnswer ? 'ring-3 ring-green-500' : ''} ${selectedAnswer === answer && 'scale-105'} ${timerEnded && selectedAnswer === null && answer !== correctAnswer ? 'ring-3 ring-red-500 opacity-50' : ''} ${timerEnded && selectedAnswer !== answer ? 'opacity-50' : ''}`}
                 >
                     {answer}
                 </button>

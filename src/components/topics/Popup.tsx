@@ -61,14 +61,14 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
                 <button
                     onClick={() => setShowPopup(false)}
                     disabled={countdown !== null}
-                    className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer min-w-20 lg:min-w-30 lg:min-h-10 lg:text-lg"
+                    className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-xl shadow font-semibold cursor-pointer min-w-20 lg:min-w-30 lg:min-h-10 lg:text-lg"
                 >
                     Back
                 </button>
                 <button
                     onClick={handleLetsGo}
                     disabled={countdown !== null}
-                    className={clsx("bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-lg shadow font-semibold cursor-pointer min-width-20 lg:min-w-30 min-w-25 lg:min-h-10 lg:text-lg",
+                    className={clsx("bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 rounded-xl shadow font-semibold cursor-pointer min-width-20 lg:min-w-30 min-w-25 lg:min-h-10 lg:text-lg",
                         shouldBounce && 'animate-bounce'
                     )}
                 >

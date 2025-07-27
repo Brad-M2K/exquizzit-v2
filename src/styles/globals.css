@@ -11,5 +11,13 @@ body {
   font-family: 'Bitcount Prop Double', monospace;
 }
 
+[data-sonner-toast] {
+  background: linear-gradient(90deg, #832bc29f,rgba(0, 255, 255, 0.654), #c7277a99) !important;
+  color: #fff !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 4px 24px 0 #a78bfa55 !important;
+  border: 2px solid #7c3aed !important;
+}
+
 
 

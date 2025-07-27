@@ -5,7 +5,8 @@ import { QuizState } from '@/types';
 
 export const useQuizStore = create<QuizState>()(
     persist(
-        (set) => ({
+        (set, get) => ({
+
             quizOptions: {
                 topic: null,
                 difficulty: null,
@@ -20,15 +21,24 @@ export const useQuizStore = create<QuizState>()(
 
             gameplay: {
                 questions: [],
+                currentIndex: 0,
                 lives: 3,
                 questionStartTimestamp: null,
                 selectedAnswer: null,
+                score: 0,
+            },
+            getCurrentQuestion: () => {
+                const state = get().gameplay;
+                return state.questions[state.currentIndex] || null;
             },
             setQuestions: (questions) => set((state) => ({
                 gameplay: { ...state.gameplay, questions }
             })),
-            setLives: (lives) => set((state) => ({
-                gameplay: { ...state.gameplay, lives }
+            setCurrentIndex: (currentIndex) => set((state) => ({
+                gameplay: { ...state.gameplay, currentIndex }
+            })) ,
+            decrementLives: () => set((state) => ({
+                gameplay: { ...state.gameplay, lives: state.gameplay.lives - 1 }
             })),
             resetLives: () => set((state) => ({
                 gameplay: { ...state.gameplay, lives: 3 }
@@ -42,6 +52,13 @@ export const useQuizStore = create<QuizState>()(
             setSelectedAnswer: (selectedAnswer) => set((state) => ({
                 gameplay: { ...state.gameplay, selectedAnswer }
             })),
+            incrementScore: () => set((state) => ({
+                gameplay: { ...state.gameplay, score: state.gameplay.score + 1}
+            })),
+            resetScore: () => set((state) => ({
+                gameplay: { ...state.gameplay, score: 0}
+            })),
+
             status: {
                 loading: false,
                 fetched: false,

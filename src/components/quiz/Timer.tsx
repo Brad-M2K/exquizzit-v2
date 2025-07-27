@@ -5,7 +5,7 @@ import { TimerProps } from '@/types';
 import clsx from 'clsx';
 import { useQuizStore } from '@/store/quizStore';
 
-export default function Timer({ duration = 17000, trigger, onComplete }: TimerProps) {
+export default function Timer({ duration = 17000, onComplete }: TimerProps) {
 
     
     
@@ -20,7 +20,6 @@ export default function Timer({ duration = 17000, trigger, onComplete }: TimerPr
     
 
     useEffect(() => {
-        if (!trigger) return;
 
         const elapsed = refreshTimestamp && questionStartTimestamp ? refreshTimestamp - questionStartTimestamp : 0;
         
@@ -53,7 +52,7 @@ export default function Timer({ duration = 17000, trigger, onComplete }: TimerPr
 
         return () => clearInterval(interval);
 
-    }, [trigger, duration, onComplete]);
+    }, [duration, onComplete]);
 
 
 
