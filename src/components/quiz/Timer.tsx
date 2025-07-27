@@ -4,11 +4,9 @@ import { useState, useEffect } from 'react';
 import { TimerProps } from '@/types';
 import clsx from 'clsx';
 import { useQuizStore } from '@/store/quizStore';
-// import { useHydrated } from "@/hooks/useHydrated";
 
 export default function Timer({ duration = 17000, onComplete }: TimerProps) {
     
-    // const hydrated = useHydrated();
     
     
     
@@ -55,9 +53,8 @@ export default function Timer({ duration = 17000, onComplete }: TimerProps) {
         
         return () => clearInterval(interval);
         
-    }, [duration, onComplete, questionStartTimestamp]);
+    }, [duration, onComplete]);
     
-    // if (!hydrated) return null;
 
 
 
