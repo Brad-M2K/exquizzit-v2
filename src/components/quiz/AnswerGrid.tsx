@@ -3,46 +3,52 @@ import '@/styles/animations.css';
 import { useQuizStore } from '@/store/quizStore';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
+import { useHydrated } from "@/hooks/useHydrated";
 
 export default function AnswerGrid({ answers, timerEnded, correctAnswer }: AnswerGridProps) {
 
-    const selectedAnswer = useQuizStore((state) => state.gameplay.selectedAnswer);
-    const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
-    const incrementScore = useQuizStore((state) => state.incrementScore);
-    const decrementLives = useQuizStore((state) => state.decrementLives);
-    const score = useQuizStore((state) => state.gameplay.score);
-
-    
-
-    useEffect(() => {
-        if (timerEnded) {
-
-            console.log(score)
-
-            if (selectedAnswer === correctAnswer) {
-                incrementScore();
-                toast.success('Correct!')
+        const hydrated = useHydrated();
+        
+        const selectedAnswer = useQuizStore((state) => state.gameplay.selectedAnswer);
+        const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
+        const incrementScore = useQuizStore((state) => state.incrementScore);
+        const decrementLives = useQuizStore((state) => state.decrementLives);
+        const score = useQuizStore((state) => state.gameplay.score);
+        
+        
+        
+        useEffect(() => {
+            if (timerEnded) {
+                
                 console.log(score)
-            } else {
-                decrementLives();
-                toast.error('Wrong answer!')
+                
+                if (selectedAnswer === correctAnswer) {
+                    incrementScore();
+                    toast.success('Correct!')
+                    console.log(score)
+                }
+                
+                if (selectedAnswer !== correctAnswer && selectedAnswer !== null) {
+                    decrementLives();
+                    toast('Wrong answer!')
+                }
             }
-        }
-
-        if (timerEnded && selectedAnswer === null) {
-            toast.error('Time ran out! No answer selected')
-        }
-
-    }, [timerEnded]);
-
-    
-    const colourClasses = [
-        `bg-red-600/40 ${!timerEnded && 'hover:bg-red-700/40'}`,
-        `bg-blue-600/40 ${!timerEnded && 'hover:bg-blue-700/40'}`,
-        `bg-yellow-600/40 ${!timerEnded && 'hover:bg-yellow-700/40'}`,
-        `bg-green-600/40 ${!timerEnded && 'hover:bg-green-700/40'}`,
-    ];
-    
+            
+            if (timerEnded && selectedAnswer === null) {
+                toast.error('Time ran out! No answer selected')
+            }
+            
+        }, [timerEnded]);
+        
+        
+        const colourClasses = [
+            `bg-red-600/40 ${!timerEnded && 'hover:bg-red-700/40'}`,
+            `bg-blue-600/40 ${!timerEnded && 'hover:bg-blue-700/40'}`,
+            `bg-yellow-600/40 ${!timerEnded && 'hover:bg-yellow-700/40'}`,
+            `bg-green-600/40 ${!timerEnded && 'hover:bg-green-700/40'}`,
+        ];
+        
+        if (!hydrated) return null;
 
     return (
         <div className="grid grid-cols-2 gap-4 mt-18">

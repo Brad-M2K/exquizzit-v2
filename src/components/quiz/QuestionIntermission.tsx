@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { QuestionIntermissionProps } from '@/types';
 import { useQuizStore } from '@/store/quizStore';
-// import { useRouter } from 'next/navigation';
+import { useHydrated } from "@/hooks/useHydrated";
+
+
 
 export default function QuestionIntermission({ setTimerEnded }: QuestionIntermissionProps) {
     
+    const hydrated = useHydrated();
     
     const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
     const setCurrentIndex = useQuizStore((state) => state.setCurrentIndex);
@@ -13,33 +16,34 @@ export default function QuestionIntermission({ setTimerEnded }: QuestionIntermis
     const [shouldBounce, setShouldBounce] = useState(true);
     const [questionWrong, setQuestionWrong] = useState(false);
     const [shouldPulse, setShouldPulse] = useState(true);
-
+    
     useEffect(() => {
-
+        
         setTimeout(() => {
             setShouldSpin(false)
         }, 1000)
-
+        
         setTimeout(() => {
             setShouldBounce(false)
         }, 4000)
-
+        
         setTimeout(() => {
             setQuestionWrong(true);
         }, 5000)
-
+        
         if (questionWrong) {
             setTimeout(() => {
                 setShouldPulse(false)
             }, 2000)
         }
-
+        
         setTimeout(() => {
             setQuestionWrong(false);
         }, 8000)
         
     }, [questionWrong])
-
+    
+    if (!hydrated) return null;
 
     return (
         <div className='flex flex-col justify-center items-center px-4'>

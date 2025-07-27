@@ -7,13 +7,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { useQuizStore } from '@/store/quizStore'
 import QuizSkeleton from '@/components/Skeletons/QuizSkeleton';
 import QuestionIntermission from '@/components/quiz/QuestionIntermission';
-
+import { useHydrated } from "@/hooks/useHydrated";
 
 
 
 export default function QuestionCard() {
-
-
+    const hydrated = useHydrated();
+    
+    
     const loading = useQuizStore((state) => state.status.loading);
     const questions = useQuizStore((state) => state.gameplay.questions)
     const { setRefreshTimestamp } = useQuizStore();
@@ -26,7 +27,7 @@ export default function QuestionCard() {
     
     
     useEffect(() => {
-
+        
         const timestamp = Date.now();
         
         const navType = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
@@ -46,15 +47,16 @@ export default function QuestionCard() {
         
     }, [setRefreshTimestamp]);
     
-
-
+    
+    
     const handleTimerComplete = useCallback(() => {
         
         setTimerEnded(true);
         
     }, []);
     
-
+    
+    if (!hydrated) return null;
 
 
     return (

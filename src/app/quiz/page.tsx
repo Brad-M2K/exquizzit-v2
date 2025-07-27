@@ -1,5 +1,6 @@
 'use client';
 
+import { useHydrated } from "@/hooks/useHydrated";
 import QuizCard from '@/components/quiz/QuizCard';
 import Header from '@/components/quiz/Header';
 import { useQuizStore } from '@/store/quizStore';
@@ -10,6 +11,9 @@ import "@fontsource/bitcount-prop-double";
 import { useSearchParams } from 'next/navigation';
 
 function QuizContent() {
+
+    const hydrated = useHydrated();
+
     const searchParams = useSearchParams();
 
     const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions } = useQuizStore();
@@ -74,6 +78,9 @@ function QuizContent() {
         };
         fetchQuestions();
     }, [storedTopic, storedDifficulty, fetched]);
+
+
+    if (!hydrated) return null;
 
 
 
