@@ -6,7 +6,7 @@ A blazingly fast, beautifully animated trivia quiz app built with Next.js 15, fe
 
 ## 🚀 **Live Demo**
 
-🌐 **[Play ExQuizzit Now!](https://your-vercel-url.vercel.app)** *(Replace with your actual Vercel URL)*
+🌐 **[Play ExQuizzit Now!](https://exquizzit-v2.vercel.app/)** 
 
 ## 🎮 **Features**
 
