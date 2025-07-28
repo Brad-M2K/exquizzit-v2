@@ -15,35 +15,12 @@ export default function QuestionCard() {
     
     const loading = useQuizStore((state) => state.status.loading);
     const questions = useQuizStore((state) => state.gameplay.questions)
-    const { setRefreshTimestamp } = useQuizStore();
     
     const currentIndex = useQuizStore((state) => state.gameplay.currentIndex);
     const currentQuestion = useQuizStore((state) => state.getCurrentQuestion());
     const [timerEnded, setTimerEnded] = useState(false);
     
     
-    
-    
-    useEffect(() => {
-        
-        const timestamp = Date.now();
-        
-        const navType = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
-        
-        const isRefresh = navType.type === 'reload';
-        
-        if (isRefresh) {
-            localStorage.setItem("quiz-refresh-timestamp", timestamp.toString());
-        }
-        
-        const saved = localStorage.getItem("quiz-refresh-timestamp");
-        if (saved) {
-            const savedTime = parseInt(saved, 10);
-            
-            setRefreshTimestamp(savedTime);
-        }
-        
-    }, [setRefreshTimestamp]);
     
     
     

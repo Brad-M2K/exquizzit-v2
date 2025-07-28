@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 // import { useHydrated } from "@/hooks/useHydrated";
 import QuizCard from '@/components/quiz/QuizCard';
 import Header from '@/components/quiz/Header';
@@ -11,19 +13,55 @@ import "@fontsource/bitcount-prop-double";
 import { useSearchParams } from 'next/navigation';
 
 function QuizContent() {
-
-    // const hydrated = useHydrated();
-
     const searchParams = useSearchParams();
+    
+    // Vercel debugging
+    const isProduction = process.env.NODE_ENV === 'production';
+    const debugLog = (message: string, data?: any) => {
+        if (isProduction) {
+            console.log(`[VERCEL-DEBUG] QuizPage: ${message}`, data);
+        }
+    };
 
-    const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions } = useQuizStore();
+    const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions, setRefreshTimestamp } = useQuizStore();
     const storedTopic = useQuizStore((state) => state.quizOptions.topic);
     const storedDifficulty = useQuizStore((state) => state.quizOptions.difficulty);
     const fetched = useQuizStore((state) => state.status.fetched);
-    
-
     const urlTopic = searchParams.get('category');
     const urlDifficulty = searchParams.get('difficulty');
+
+
+        
+        
+    useEffect(() => {
+        debugLog('Refresh timestamp useEffect triggered');
+        
+        const timestamp = Date.now();
+        debugLog('Current timestamp', { timestamp });
+        
+        const navType = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
+        debugLog('Navigation type', { navType: navType?.type });
+        
+        const isRefresh = navType.type === 'reload';
+        debugLog('Is page refresh?', { isRefresh });
+        
+        if (isRefresh) {
+            debugLog('Setting refresh timestamp in localStorage', { timestamp });
+            localStorage.setItem("quiz-refresh-timestamp", timestamp.toString());
+        }
+        
+        const saved = localStorage.getItem("quiz-refresh-timestamp");
+        debugLog('Retrieved saved timestamp from localStorage', { saved });
+        
+        if (saved) {
+            const savedTime = parseInt(saved, 10);
+            debugLog('Setting refresh timestamp in store', { savedTime });
+            setRefreshTimestamp(savedTime);
+        }
+        
+    }, [setRefreshTimestamp]);
+    
+
     
 
     useEffect(() => {
@@ -78,10 +116,6 @@ function QuizContent() {
         };
         fetchQuestions();
     }, [storedTopic, storedDifficulty, fetched]);
-
-
-    // if (!hydrated) return null;
-
 
 
     return (

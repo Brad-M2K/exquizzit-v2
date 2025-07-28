@@ -6,31 +6,45 @@ import clsx from 'clsx';
 import { useQuizStore } from '@/store/quizStore';
 
 export default function Timer({ duration = 17000, onComplete }: TimerProps) {
-    
-    
-    
-    
     const [timer, setTimer] = useState<number>(0);
     const { resetRefreshTimestamp, setQuestionStartTimestamp } = useQuizStore();
     const questionStartTimestamp = useQuizStore((state) => state.gameplay.questionStartTimestamp)
     const refreshTimestamp = useQuizStore((state) => state.status.refreshTimestamp)
+    
+    // Vercel debugging
+    const isProduction = process.env.NODE_ENV === 'production';
+    const debugLog = (message: string, data?: any) => {
+        if (isProduction) {
+            console.log(`[VERCEL-DEBUG] Timer: ${message}`, data);
+        }
+    };
     
     
     
     
     
     useEffect(() => {
-        
+        debugLog('Timer useEffect triggered', {
+            refreshTimestamp,
+            questionStartTimestamp,
+            duration,
+            componentMountTime: Date.now()
+        });
         
         const elapsed = refreshTimestamp && questionStartTimestamp ? refreshTimestamp - questionStartTimestamp : 0;
+        debugLog('Calculated elapsed time', { elapsed, refreshTimestamp, questionStartTimestamp });
         
         const initialTimer = Math.max(100 - (elapsed / duration) * 100, 0);
+        debugLog('Setting initial timer', { initialTimer, calculatedFromElapsed: elapsed });
         setTimer(initialTimer);
         
         if (refreshTimestamp) {
+            debugLog('Found refresh timestamp, resetting it', { refreshTimestamp });
             resetRefreshTimestamp();
         } else {
-            setQuestionStartTimestamp(Date.now())
+            const now = Date.now();
+            debugLog('No refresh timestamp, setting question start', { now });
+            setQuestionStartTimestamp(now);
         }
         
         
