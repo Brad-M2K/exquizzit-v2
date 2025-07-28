@@ -61,7 +61,11 @@ function QuizContent() {
         }
         
         debugLog('Refresh check complete, allowing Timer to initialize');
-        setHasCheckedRefresh(true);
+        
+        // Add small delay to ensure skeleton is visible even on fast refreshes
+        setTimeout(() => {
+            setHasCheckedRefresh(true);
+        }, 150); // 150ms minimum skeleton display
         
     }, [setRefreshTimestamp]);
     
