@@ -11,32 +11,37 @@ export default function AnswerGrid({ answers, timerEnded, correctAnswer }: Answe
         const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
         const incrementScore = useQuizStore((state) => state.incrementScore);
         const decrementLives = useQuizStore((state) => state.decrementLives);
-        const score = useQuizStore((state) => state.gameplay.score);
+        const hasProcessedAnswer = useQuizStore((state) => state.gameplay.hasProcessedAnswer);
+        const setHasProcessedAnswer = useQuizStore((state) => state.setHasProcessedAnswer);
         
         
         
         useEffect(() => {
-            if (timerEnded) {
-                
-                console.log(score)
+
+            
+            if (timerEnded && !hasProcessedAnswer) {
+
                 
                 if (selectedAnswer === correctAnswer) {
                     incrementScore();
                     toast.success('Correct!')
-                    console.log(score)
                 }
                 
                 if (selectedAnswer !== correctAnswer && selectedAnswer !== null) {
                     decrementLives();
-                    toast('Wrong answer!')
+                    toast.error('Wrong answer!')
                 }
-            }
+                
+                if (selectedAnswer === null) {
+                    decrementLives();
+                    toast.error('Time ran out! No answer selected')
+                }
+                
+                // Mark this answer as processed
+                setHasProcessedAnswer(true);
+            } 
             
-            if (timerEnded && selectedAnswer === null) {
-                toast.error('Time ran out! No answer selected')
-            }
-            
-        }, [timerEnded]);
+        }, [timerEnded, hasProcessedAnswer]);
         
         
         const colourClasses = [

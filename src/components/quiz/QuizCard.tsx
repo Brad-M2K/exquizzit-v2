@@ -3,7 +3,7 @@
 import AnswerGrid from '@/components/quiz/AnswerGrid'
 import Question from '@/components/quiz/Question'
 import Timer from '@/components/quiz/Timer';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useQuizStore } from '@/store/quizStore'
 import QuizSkeleton from '@/components/Skeletons/QuizSkeleton';
 import QuestionIntermission from '@/components/quiz/QuestionIntermission';

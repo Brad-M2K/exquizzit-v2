@@ -26,6 +26,7 @@ export const useQuizStore = create<QuizState>()(
                 questionStartTimestamp: null,
                 selectedAnswer: null,
                 score: 0,
+                hasProcessedAnswer: false,
             },
             getCurrentQuestion: () => {
                 const state = get().gameplay;
@@ -57,6 +58,9 @@ export const useQuizStore = create<QuizState>()(
             })),
             resetScore: () => set((state) => ({
                 gameplay: { ...state.gameplay, score: 0}
+            })),
+            setHasProcessedAnswer: (hasProcessed) => set((state) => ({
+                gameplay: { ...state.gameplay, hasProcessedAnswer: hasProcessed }
             })),
 
             status: {

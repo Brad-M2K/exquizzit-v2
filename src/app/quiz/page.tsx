@@ -7,22 +7,17 @@ import QuizCard from '@/components/quiz/QuizCard';
 import Header from '@/components/quiz/Header';
 import { useQuizStore } from '@/store/quizStore';
 import { useEffect, Suspense, useState } from 'react';
+import QuizSkeleton from '@/components/Skeletons/QuizSkeleton';
 import { cleanQuestion } from '@/utils/cleanQuestion';
 import { RawTriviaQuestion, CleanedQuestion } from '@/types';
 import "@fontsource/bitcount-prop-double"; 
 import { useSearchParams } from 'next/navigation';
+import Lives from '@/components/quiz/Lives'
 
 function QuizContent() {
     const searchParams = useSearchParams();
     const [hasCheckedRefresh, setHasCheckedRefresh] = useState(false);
     
-    // Vercel debugging
-    const isProduction = process.env.NODE_ENV === 'production';
-    const debugLog = (message: string, data?: any) => {
-        if (isProduction) {
-            console.log(`[VERCEL-DEBUG] QuizPage: ${message}`, data);
-        }
-    };
 
     const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions, setRefreshTimestamp } = useQuizStore();
     const storedTopic = useQuizStore((state) => state.quizOptions.topic);
@@ -30,42 +25,29 @@ function QuizContent() {
     const fetched = useQuizStore((state) => state.status.fetched);
     const urlTopic = searchParams.get('category');
     const urlDifficulty = searchParams.get('difficulty');
-
+    const resetLives = useQuizStore((state) => state.resetLives);
 
         
         
     useEffect(() => {
-        debugLog('Refresh timestamp useEffect triggered');
-        
         const timestamp = Date.now();
-        debugLog('Current timestamp', { timestamp });
-        
         const navType = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
-        debugLog('Navigation type', { navType: navType?.type });
-        
         const isRefresh = navType.type === 'reload';
-        debugLog('Is page refresh?', { isRefresh });
         
         if (isRefresh) {
-            debugLog('Setting refresh timestamp in localStorage', { timestamp });
             localStorage.setItem("quiz-refresh-timestamp", timestamp.toString());
         }
         
         const saved = localStorage.getItem("quiz-refresh-timestamp");
-        debugLog('Retrieved saved timestamp from localStorage', { saved });
-        
         if (saved) {
             const savedTime = parseInt(saved, 10);
-            debugLog('Setting refresh timestamp in store', { savedTime });
             setRefreshTimestamp(savedTime);
         }
-        
-        debugLog('Refresh check complete, allowing Timer to initialize');
         
         // Add small delay to ensure skeleton is visible even on fast refreshes
         setTimeout(() => {
             setHasCheckedRefresh(true);
-        }, 150); // 150ms minimum skeleton display
+        }, 150);
         
     }, [setRefreshTimestamp]);
     
@@ -78,6 +60,7 @@ function QuizContent() {
         }
     }, [urlTopic, urlDifficulty, storedTopic, storedDifficulty, setQuizOptions]);
 
+
     useEffect(() => {
         if (!storedTopic || !storedDifficulty || fetched) {
             return;
@@ -89,6 +72,7 @@ function QuizContent() {
 
                 resetQuestionStartTimestamp();
                 resetRefreshTimestamp();
+                resetLives();
 
                 const url = new URL('https://opentdb.com/api.php');
                 url.searchParams.set('amount', '20');
@@ -131,18 +115,12 @@ function QuizContent() {
             <header className='flex items-center justify-center'>
                 <Header/>
             </header>
-            <main className="flex-1 flex flex-col justify-center items-center w-full h-full">
+            <main className="flex-1 flex flex-col justify-center items-center w-full h-full md:justify-center justify-start pt-8 md:pt-0">
+                <Lives/>
                 {hasCheckedRefresh ? <QuizCard /> : (
                     <div className="w-full px-4">
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 shadow-2xl border border-white/20 mx-auto w-[350px] sm:max-w-[400px] lg:max-w-160 w-auto h-auto">
-                            <div className="h-50 bg-white/40 rounded-md animate-pulse mb-5 lg:h-80" />
-                            <div className="h-2 bg-white/40 rounded-md animate-pulse mb-2"/>
-                            <div className="grid grid-cols-2 gap-4 mt-18">
-                                <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
-                                <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
-                                <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
-                                <div className="h-20 bg-white/40 rounded-md animate-pulse lg:min-h-35" />
-                            </div>
+                            <QuizSkeleton />
                         </div>
                     </div>
                 )}

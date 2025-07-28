@@ -135,3 +135,48 @@
         background-size: 400% 100%;
         animation: shimmer 15s infinite linear;
 }
+
+@keyframes stroke-shimmer {
+    0% {
+        stroke: #ff00c8;
+    }
+    16.66% {
+        stroke: #00ffee;
+    }
+    33.33% {
+        stroke: #a855f7;
+    }
+    50% {
+        stroke: #ff00c8;
+    }
+    66.66% {
+        stroke: #00ffee;
+    }
+    83.33% {
+        stroke: #a855f7;
+    }
+    100% {
+        stroke: #ff00c8;
+    }
+}
+
+.magic-shimmer-stroke {
+    animation: stroke-shimmer 4.4s linear infinite;
+    stroke-width: 2;
+    fill: currentColor;
+}
+
+@keyframes svg-gradient-move {
+    0% {
+        x1: -200%;
+        x2: -100%;
+    }
+    100% {
+        x1: 200%;
+        x2: 300%;
+    }
+}
+
+.magic-shimmer-svg-gradient {
+    animation: svg-gradient-move 4.4s linear infinite;
+}

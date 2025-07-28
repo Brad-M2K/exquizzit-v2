@@ -14,6 +14,7 @@ export type QuizState = {
         questionStartTimestamp: number | null;
         selectedAnswer: string | null;
         score: number;
+        hasProcessedAnswer: boolean;
     };
     getCurrentQuestion: () => CleanedQuestion | null;
     setQuestions: (questions: CleanedQuestion[]) => void;
@@ -25,6 +26,7 @@ export type QuizState = {
     setSelectedAnswer: (answer: string | null) => void;
     incrementScore: () => void;
     resetScore: () => void;
+    setHasProcessedAnswer: (hasProcessed: boolean) => void;
 
     status: {
         loading: boolean;

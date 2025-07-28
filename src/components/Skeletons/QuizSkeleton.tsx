@@ -1,21 +1,19 @@
 export default function QuizSkeleton() {
     return (
         <>
+            {/* EXACT copy of Question component styling */}
+            <div className="min-h-50 px-4 py-2 bg-white/40 shadow-lg rounded-3xl mb-5 text-center flex items-center justify-center font-bold lg:text-2xl text-md lg:h-80 animate-pulse" />
             
-                {/* Fake question line */}
-                <div className="h-50 bg-white/40 rounded-2xl animate-pulse mb-5 lg:h-80" />
-            
-                {/* Timer */}
-                <div className="h-2 bg-white/40 rounded-md animate-pulse mb-2"/>
+            {/* EXACT copy of Timer component styling */}
+            <div className="h-2 bg-white/40 rounded overflow-hidden mb-8 shadow-lg animate-pulse" />
 
-                {/* Fake answers in 2x2 grid */}
-                <div className="grid grid-cols-2 gap-4 mt-18">
-                    <div className="h-20 bg-white/40 rounded-2xl animate-pulse lg:min-h-30" />
-                    <div className="h-20 bg-white/40 rounded-2xl animate-pulse lg:min-h-30" />
-                    <div className="h-20 bg-white/40 rounded-2xl animate-pulse lg:min-h-30" />
-                    <div className="h-20 bg-white/40 rounded-2xl animate-pulse lg:min-h-30" />
-                </div>
-            
+            {/* EXACT copy of AnswerGrid styling */}
+            <div className="grid grid-cols-2 gap-4 mt-18">
+                <div className="min-h-20 lg:min-h-30 lg:min-w-20 px-3 py-1 shadow-lg rounded-2xl lg:rounded-2xl text-center flex items-center justify-center text-gray-200 font-bold text-sm lg:text-xl bg-white/40 animate-pulse" />
+                <div className="min-h-20 lg:min-h-30 lg:min-w-20 px-3 py-1 shadow-lg rounded-2xl lg:rounded-2xl text-center flex items-center justify-center text-gray-200 font-bold text-sm lg:text-xl bg-white/40 animate-pulse" />
+                <div className="min-h-20 lg:min-h-30 lg:min-w-20 px-3 py-1 shadow-lg rounded-2xl lg:rounded-2xl text-center flex items-center justify-center text-gray-200 font-bold text-sm lg:text-xl bg-white/40 animate-pulse" />
+                <div className="min-h-20 lg:min-h-30 lg:min-w-20 px-3 py-1 shadow-lg rounded-2xl lg:rounded-2xl text-center flex items-center justify-center text-gray-200 font-bold text-sm lg:text-xl bg-white/40 animate-pulse" />
+            </div>
         </>
     );
-} 
+}
