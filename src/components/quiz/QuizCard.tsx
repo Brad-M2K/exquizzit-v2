@@ -3,22 +3,23 @@
 import AnswerGrid from '@/components/quiz/AnswerGrid'
 import Question from '@/components/quiz/Question'
 import Timer from '@/components/quiz/Timer';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useQuizStore } from '@/store/quizStore'
 import QuizSkeleton from '@/components/Skeletons/QuizSkeleton';
 import QuestionIntermission from '@/components/quiz/QuestionIntermission';
+import { QuizCardProps } from '@/types/quizGame';
 
 
 
-export default function QuestionCard() {
-    
-    
+export default function QuizCard({ setShowGameOver, setTimerEnded, timerEnded }: QuizCardProps) {
+
+
     const loading = useQuizStore((state) => state.status.loading);
     const questions = useQuizStore((state) => state.gameplay.questions)
     
     const currentIndex = useQuizStore((state) => state.gameplay.currentIndex);
     const currentQuestion = useQuizStore((state) => state.getCurrentQuestion());
-    const [timerEnded, setTimerEnded] = useState(false);
+    
     
     
     
@@ -52,6 +53,7 @@ export default function QuestionCard() {
                             
                             <QuestionIntermission
                                 setTimerEnded={setTimerEnded}
+                                setShowGameOver={setShowGameOver}
                             />
                         )}
                         <AnswerGrid

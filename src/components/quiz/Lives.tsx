@@ -12,14 +12,14 @@ export default function Lives() {
                 <Heart 
                     key={index} 
                     size={24} 
-                    className={isAlive ? 'text-red-500 fill-red-500' : 'text-gray-400 fill-gray-400'}
+                    className={isAlive ? `text-red-500 fill-red-500 ${lives === 1 && 'animate-pulse'}` : 'text-gray-400 fill-gray-400'}
                 />
             );
         });
     };
 
     return (
-        <div className="bg-white/20 border border-gray-500 rounded-xl font-bold text-3xl p-2 mb-2 md:mb-4 flex items-center justify-center gap-2">
+        <div className="bg-white/20 border border-gray-500 rounded-xl font-bold text-3xl p-2 mb-2 md:mb-4 flex items-center justify-center gap-2 ">
             {renderHearts()}
         </div>
     )

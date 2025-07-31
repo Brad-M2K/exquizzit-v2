@@ -2,7 +2,6 @@
 
 export const dynamic = 'force-dynamic';
 
-// import { useHydrated } from "@/hooks/useHydrated";
 import QuizCard from '@/components/quiz/QuizCard';
 import Header from '@/components/quiz/Header';
 import { useQuizStore } from '@/store/quizStore';
@@ -13,10 +12,13 @@ import { RawTriviaQuestion, CleanedQuestion } from '@/types';
 import "@fontsource/bitcount-prop-double"; 
 import { useSearchParams } from 'next/navigation';
 import Lives from '@/components/quiz/Lives'
+import GameOverModal from '@/components/quiz/GameOverModal';
+
 
 function QuizContent() {
     const searchParams = useSearchParams();
     const [hasCheckedRefresh, setHasCheckedRefresh] = useState(false);
+    const [timerEnded, setTimerEnded] = useState(false);
     
 
     const { setLoading, setQuestions, setFetched, resetRefreshTimestamp, resetQuestionStartTimestamp, setQuizOptions, setRefreshTimestamp } = useQuizStore();
@@ -26,7 +28,11 @@ function QuizContent() {
     const urlTopic = searchParams.get('category');
     const urlDifficulty = searchParams.get('difficulty');
     const resetLives = useQuizStore((state) => state.resetLives);
+    const setHasProcessedAnswer = useQuizStore((state) => state.setHasProcessedAnswer);
+    const setCurrentIndex = useQuizStore((state) => state.setCurrentIndex); 
+    const resetScore = useQuizStore((state) => state.resetScore);
 
+    const [showGameOver, setShowGameOver] = useState(false);
         
         
     useEffect(() => {
@@ -44,7 +50,7 @@ function QuizContent() {
             setRefreshTimestamp(savedTime);
         }
         
-        // Add small delay to ensure skeleton is visible even on fast refreshes
+        
         setTimeout(() => {
             setHasCheckedRefresh(true);
         }, 150);
@@ -73,6 +79,9 @@ function QuizContent() {
                 resetQuestionStartTimestamp();
                 resetRefreshTimestamp();
                 resetLives();
+                setCurrentIndex(0);
+                setHasProcessedAnswer(false);
+                resetScore();
 
                 const url = new URL('https://opentdb.com/api.php');
                 url.searchParams.set('amount', '20');
@@ -116,8 +125,18 @@ function QuizContent() {
                 <Header/>
             </header>
             <main className="flex-1 flex flex-col justify-center items-center w-full h-full md:justify-center justify-start pt-8 md:pt-0">
+                {showGameOver && (
+                    <GameOverModal
+                        setShowGameOver={setShowGameOver}
+                        setTimerEnded={setTimerEnded}
+                    />
+                )}
                 <Lives/>
-                {hasCheckedRefresh ? <QuizCard /> : (
+                {hasCheckedRefresh ? (<QuizCard
+                    setShowGameOver={setShowGameOver}
+                    setTimerEnded={setTimerEnded}
+                    timerEnded={timerEnded}
+                />) : (
                     <div className="w-full px-4">
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 shadow-2xl border border-white/20 mx-auto w-[350px] sm:max-w-[400px] lg:max-w-160 w-auto h-auto">
                             <QuizSkeleton />

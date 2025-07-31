@@ -35,7 +35,7 @@ export default function Popup({ topic, difficulty, setDifficulty, onStart, setSh
 
     return (
         <div
-            className="bg-gray-900/50 backdrop-blur-3xl border border-[rgba(168,85,247,0.15)] rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center gap-6 min-h-80 max-w-sm w-[90%] lg:max-w-lg lg:max-h-lg l"
+            className="bg-gray-900/50 backdrop-blur-3xl border border-gray-400/30 rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center gap-6 min-h-80 max-w-sm w-[90%] lg:max-w-lg lg:max-h-lg l"
         >
             <div className="flex flex-col items-center justify-center">
                 <h1

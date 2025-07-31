@@ -4,7 +4,7 @@ import { useQuizStore } from '@/store/quizStore';
 
 
 
-export default function QuestionIntermission({ setTimerEnded }: QuestionIntermissionProps) {
+export default function QuestionIntermission({ setTimerEnded, setShowGameOver }: QuestionIntermissionProps) {
     
     
     const setSelectedAnswer = useQuizStore((state) => state.setSelectedAnswer);
@@ -47,7 +47,7 @@ export default function QuestionIntermission({ setTimerEnded }: QuestionIntermis
             {gameOver ? (
                 <button
                     onClick={() => {
-                        // setShowEndGame(true);
+                        setShowGameOver(true);
                     }}
                     className={`bg-red-900/60 text-white text-sm rounded-2xl hover:text-gray-300 px-6 py-2 font-semibold text-lg shadow transition-colors duration-150 w-auto min-w-[140px] max-w-full lg:text-xl cursor-pointer  ${shouldPulse && 'red-throb-button'}`}
                     >
@@ -58,7 +58,7 @@ export default function QuestionIntermission({ setTimerEnded }: QuestionIntermis
                     onClick={() => {
                         setTimerEnded(false);
                         setSelectedAnswer(null);
-                        setHasProcessedAnswer(false); // Reset for next question
+                        setHasProcessedAnswer(false); 
                         setCurrentIndex(currentIndex + 1)
                     }}
                     className={`bg-purple-900/60 text-white text-sm rounded-2xl hover:text-gray-300 px-6 py-2 font-semibold text-lg shadow transition-colors duration-150 w-auto min-w-[140px] max-w-full lg:text-xl  cursor-pointer ${shouldBounce && 'animate-bounce'} ${shouldSpin && 'animate-spin'}`}
