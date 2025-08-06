@@ -25,7 +25,7 @@ export default function GameOverModal({setShowGameOver, setTimerEnded}: GameOver
                             router.push('./')
                             setShowGameOver(false);
                         }}
-                        className="bg-purple-900 rounded-xl items-center px-10 py-2 font-bold text-white text-2xl shadow cursor-pointer"
+                        className="bg-purple-900 rounded-xl items-center lg:px-8 lg:py-2 px-4 py-2 font-bold text-white lg:text-xl shadow cursor-pointer"
                     >
                         Go Home
                     </button>
@@ -35,7 +35,7 @@ export default function GameOverModal({setShowGameOver, setTimerEnded}: GameOver
                             setFetched(false);
                             setTimerEnded(false);
                         }}
-                        className='magic-shimmer-bg px-10 py-2 rounded-xl font-bold text-white text-2xl cursor-pointer'
+                        className='magic-shimmer-bg lg:px-8 lg:py-2 px-4 py-2 rounded-xl font-bold text-white lg:text-xl cursor-pointer'
                     >
                         Try Again?
                     </button>
