@@ -15,18 +15,17 @@ datasource db {
 }
 
 model User {
-  id               String   @id @default(cuid())
-  email            String   @unique
+  id               String    @id @default(cuid())
+  email            String    @unique
   userName         String?
   avatar           String?
-  highScore        Int      @default(0)
-  quizzBuckTotal   Int      @default(0)
-  questionsCorrect Int      @default(0)
-  createdAt        DateTime @default(now())
+  highScore        Int       @default(0)
+  quizzBuckTotal   Int       @default(0)
+  questionsCorrect Int       @default(0)
+  createdAt        DateTime  @default(now())
   games            Game[]
-
-  accounts Account[]
-  sessions Session[]
+  accounts         Account[]
+  sessions         Session[]
 
   @@map("users")
 }

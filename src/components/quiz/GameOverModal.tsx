@@ -7,6 +7,7 @@ export default function GameOverModal({setShowGameOver, setTimerEnded}: GameOver
 
     const router = useRouter();
     const score = useQuizStore((state) => state.gameplay.score);
+    const currentIndex = useQuizStore((state) => state.gameplay.currentIndex);
     const { setFetched } = useQuizStore();
 
 
@@ -16,7 +17,7 @@ export default function GameOverModal({setShowGameOver, setTimerEnded}: GameOver
             <div className="bg-gray-900/50 backdrop-blur-2xl border border-gray-400/30 rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center gap-6 min-h-80 max-w-sm w-[90%] lg:max-w-lg lg:max-h-lg">
                 <div >
                     <div className=' bg-gray-900 border border-gray-700 magic-shimmer-text font-bold text-3xl rounded-lg px-6 py-2 mb-4'>
-                        You Scored: {score}
+                        {`${score} out of ${currentIndex} correct answers!`}
                     </div>
                 </div>
                 <div className='flex flex-row gap-4'>
